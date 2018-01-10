@@ -7,7 +7,7 @@ function getJatanaSettings(url,data_obj,method){
   var settings = {
     url: url,
     headers: {"Authorization": "Bearer {{setting.token}}"},
-    secure: false,
+    secure: true,
     type: method
   };
   if (data_obj != null){
