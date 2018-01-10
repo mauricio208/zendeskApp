@@ -1,0 +1,25 @@
+{
+  "name": "Jatana",
+  "author": {
+    "name": "Animesh Pratap",
+    "email": "animesh@jatana.ai",
+    "url": "http://jatana.ai/"
+  },
+  "defaultLocale": "en",
+  "private": false,
+  "location": {
+    "support": {
+      "ticket_sidebar": "assets/iframe.html"
+    }
+  },
+  "domainWhitelist": ["nlp.motherbot.co","spider.motherbot.co","jatana.motherbot.co"],
+  "version": "1.1",
+  "frameworkVersion": "2.0",
+  "parameters": [
+    {
+      "name": "token",
+      "type": "text",
+      "secure": true
+    }
+  ]
+}

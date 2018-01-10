@@ -1,0 +1,24 @@
+{
+  "triggers":{
+      "auto_apply_macro":{
+    		"title": "AutoMacroAPI",
+    		"active": true,
+    		"actions": [{
+    			"field": "notification_target",
+    			"value": ["auto_macro_target", "{\"title\":\"{{ticket.title}}\",\n\"description\":\"{{ticket.description}}\",\n\"status\":\"{{ticket.status}}\",\n\"comment\":\"{{ticket.comments[0].value}}\",\"id\":\"{{ticket.id}}\",\"url\":\"{{ticket.url}}\"}"]
+    		}],
+    		"conditions": {	"all": [{"field": "status","operator": "is","value": "new"}],"any": []},
+    		"description": "Auto Apply Macros",
+    		"raw_title": "Auto Answering"
+    	}
+  },
+  "targets": {
+    "auto_macro_target": {
+      "type": "http_target",
+      "method":"post",
+      "content_type":"application/json",
+      "target_url":"http://motherbot.co/zendesk/",
+      "title":"JATANA Smart Suggestion"
+    }
+  }
+}

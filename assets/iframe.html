@@ -1,0 +1,51 @@
+<html>
+<head>
+  <link href="https://cdn.jsdelivr.net/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="main.css" rel="stylesheet">
+</head>
+<body>
+
+  <div id="content">
+    <div class="loader"></div>
+  </div>
+  <footer>
+    <a style='text-align: end' href="https://jatana.ai/support" target="_blank"><br><br><br><br>Report bugs</a>
+  </footer>
+
+  <script id="first-time" type="text/x-handlebars-template">
+    <div style="text-align: center">
+
+      <p>Congratulations! <br>You have successfully added Jatana to your zendesk, to continue please contact us at <a href="mailto:getstarted@jatana.ai">getstarted@jatana.ai</a> </p>
+    </div>
+  </script>
+
+  <script id="in-progress" type="text/x-handlebars-template">
+    <div style="text-align: center">
+      <p>We are currently analyzing your data, please give us some time.</p>
+    </div>
+  </script>
+
+  <script id="requester-template" type="text/x-handlebars-template">
+
+    <table>
+    {{#each this}}
+    <tr>
+      <td>{{title}}</td>
+      <td> {{confidence}} Confidence</td>
+      <td class="data"><button class="button2 button" onclick=applyMacro({{id}}) data-value=macro_{{id}}>Apply</button></td>
+    </tr>
+    {{/each}}
+    </table>
+  </script>
+
+  <script id="error-template" type="text/x-handlebars-template">
+    <p>{{status}} - {{statusText}} error. Please report a bug at the link below.</p>
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery/3.0.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://assets.zendesk.com/apps/sdk/2.0/zaf_sdk.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+</body>
+
+</html>

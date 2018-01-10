@@ -1,0 +1,15 @@
+{
+  "app": {
+
+    "name": "Jatana",
+    "short_description": "Jatana automates customer service",
+    "long_description": "## The future of AI-powered customer service \n [Jatana](http://www.jatana.ai/?utm_source=z-marketplace&utm_medium=description&utm_campaign=top-link) automates customer service with Machine Learning so that your agents can spend more with the customers that matter most to your business \n ## Boosting Agent Productivity  \nJatana suggests the best answer to every support request so that your agents don’t have to write it manually every time \n## Reducing Answering Time \n Set a confidence threshold and Jatana will reply to every support request without the need for a support agent to intervene\n\n## Increasing Customer Satisfaction \nDeliver immediate gratifications to your loyal customers waiting for answers and pave the way for an increase in future sales \n\n&nbsp; Join us at [Jatana.ai](http://www.jatana.ai/?utm_source=z-marketplace&utm_medium=description&utm_campaign=top-link) and experience the future of AI-powered customer service",
+    "installation_instructions": "Installing [Jatana](http://www.jatana.ai/?utm_source=z-marketplace&utm_medium=HowToSetup&utm_campaign=top-link) on your zendesk account is fast and easy, just follow a few simple steps and you are good to go: \n\n- Click install in the upper right corner of this page\n- In the popup window, select the Zendesk account where you would like Jatana to be installed and confirm by clicking the “Install” button\n- Now you will be redirected to your Zendesk account (you may be asked to login again if you are not already signed in) \n- Click install to confirm the installation \n\nNow that Jatana is installed, reach out to our team by sending an email to [getstarted@jatana.ai](mailto:getstarted@jatana.ai) and we’ll enable all the powerful automation features for your account for free.\n\n### APP DETAILS ###\nAuthor: Jatana \n\nSupport: [Email](mailto:support@jatana.ai) / [Website](http://www.jatana.ai/?utm_source=z-marketplace&utm_medium=AppDetails&utm_campaign=support) \n\nVersion: 1.0\n ",
+    "parameters": {
+        "token": {
+          "label": "Token from Jatana",
+          "helpText": "While security is our top most priority, we provide you with a secure token from which only you can access your data."
+        }
+      }
+  }
+}
