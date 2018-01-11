@@ -167,7 +167,10 @@ function checkaccountstate(client){
                 });
           });
         }
-    })
+    }).catch(
+      function onError(error){
+        console.log(error);connectJatana('#error-loading');
+      })
   })
 }
 
