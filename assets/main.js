@@ -13,7 +13,6 @@ function getJatanaSettings(url,data_obj,method){
   if (data_obj != null){
     settings.data = data_obj
   }
-  console.log(setting.token);
   return settings;
 }
 
