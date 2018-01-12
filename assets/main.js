@@ -145,9 +145,12 @@ function checkaccountstate(client){
     client.request(state_settings)
     .then(resp =>{
         console.log(resp);
-        if (resp.state==="New"){
+        if (resp.state==="DashboardConnect"){
           console.log("here");
-          connectJatana('#first-time');
+          connectJatana('#dashboard-connect',{'subdomain':account.currentAccount.subdomain.trim()});
+        }
+        else if(resp.state==='ZendeskConnect'){
+          connectJatana('#zendesk-connect',{'subdomain':account.currentAccount.subdomain.trim()})
         }
         else if (resp.state==="In Progress") {
           connectJatana('#in-progress');
@@ -169,7 +172,8 @@ function checkaccountstate(client){
         }
     }).catch(
       function onError(error){
-        console.log(error);connectJatana('#error-loading');
+        console.log(error);
+        connectJatana('#error-loading');
       })
   })
 }
@@ -252,11 +256,11 @@ function createAndShowHTML(data) {
   $("#content").html(html);
 }
 
-function connectJatana(tag){
+function connectJatana(tag,data=null){
   console.log(tag);
   var source = $(tag).html();
   var template = Handlebars.compile(source);
-  var html = template();
+  var html = template(data);
   $('#content').html(html);
 }
 
