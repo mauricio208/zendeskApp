@@ -33,6 +33,12 @@ function applyMacro (id) {
     for(var i=0;i<actions.length;i++){
       checkAndApply(client,actions[i])
     }
+    client.get('currentUser').then(currentUser => {
+      var macro_analytics_url = "https://zendesk.jatana.ai/macro_applied"
+      var user_data = {'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset}
+      var macro_analytics_settings = getJatanaSettings(macro_analytics_url,user_data,'POST')
+      client.request(macro_analytics_settings).then( analytics_response =>{console.log(analytics_response);})
+    })
   },
   function(response) {
     console.error(response.responseText);
@@ -109,92 +115,52 @@ $(function() {
   var client = ZAFClient.init();
   client.invoke('resize', { width: '100%', height: '400px' });
   checkaccountstate(client).then(state=>{console.log(state);})
-
-  console.log(state);
-  if (state==="New"){
-    console.log("here");
-    connectJatana('#first-time');
-  }
-  else if (state==="In Progress") {
-    connectJatana('#in-progress');
-  }
-  else if (state === "Live"){
-    client.get('ticket').then(function(data) {
-  		var description = data.ticket.description;
-      console.log(data.ticket.description);
-          fetch('https://nlp.motherbot.co/dev/api/v1.0/jatana?query='+encodeURI(data.ticket.description))
-          .then(response => {
-            response.json()
-            .then(json => {
-              console.log(json.macros);
-              populateApp(client, json.macros);
-            });
-          });
-    });
-  }
 });
 
 function checkaccountstate(client){
-  client.get('currentAccount')
-  .then(account =>{
-    console.log(account.currentAccount.subdomain);
-    client.metadata().then(data=>{console.log(data);})
-    //fetch('http://localhost:8080/state?subdomain='+encodeURI(account.currentAccount.subdomain))
-    url = 'https://jatana.motherbot.co/state?subdomain='+encodeURI(account.currentAccount.subdomain)
-    var state_settings = getJatanaSettings(url,null,"GET");
-    client.request(state_settings)
-    .then(resp =>{
-        console.log(resp);
-        if (resp.state==="DashboardConnect"){
-          console.log("here");
-          connectJatana('#dashboard-connect',{'subdomain':account.currentAccount.subdomain.trim()});
-        }
-        else if(resp.state==='ZendeskConnect'){
-          connectJatana('#zendesk-connect',{'subdomain':account.currentAccount.subdomain.trim()})
-        }
-        else if (resp.state==="In Progress") {
-          connectJatana('#in-progress');
-        }
-        else if (resp.state === "Live"){
-          client.get('ticket').then(function(data) {
-            var description = data.ticket.description;
-            console.log(data.ticket.description);
-                //fetch('https://nlp.motherbot.co/dev/api/v1.0/jatana?version=2&query='+encodeURI(data.ticket.description))
-                url = 'https://nlp.motherbot.co/dev/api/v1.0/jatana?version=2&query='+encodeURI(data.ticket.description)
-                var nlp_settings = getJatanaSettings(url,null,"GET");
-                client.request(nlp_settings)
-                .then(response => {
-                  console.log(response);
-                    populateApp(client, response);
+    client.get('currentUser').then(currentUser => {
+      console.log(currentUser);
+      client.get('currentAccount').then(account =>{
+        client.metadata().then(metadata => {
+            url = 'https://zendesk.jatana.ai/state?identifier='+encodeURI(account.currentAccount.subdomain)+'&email='+encodeURI(currentUser.currentUser.email)+'&name='+encodeURI(currentUser.currentUser.name)+'&role='+encodeURI(currentUser.currentUser.role)+'&timezone='+encodeURI(currentUser.currentUser.timeZone.formattedOffset)
+            var state_settings = getJatanaSettings(url,null,"GET");
+            client.request(state_settings).then(resp =>{
+                console.log(resp);
+                if (resp.state==="DashboardConnect"){
+                  connectJatana('#dashboard-connect',{'subdomain':account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset});
+                }
+                else if (resp.state==="ZendeskConnect") {
+                    connectJatana('#zendesk-connect',{'subdomain':account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset});
+                }
+                else if (resp.state==="InProgress") {
+                    connectJatana('#in-progress');
+                }
+                else if (resp.state === "Live" ){
+                  client.get('ticket').then(function(data) {
+                    var description = data.ticket.description;
+                    console.log(data.ticket.description);
+                    url = 'https://nlp.jatana.ai/api/v2.0/query?q='+encodeURI(data.ticket.description)
+                    data = {'q':data.ticket.description}
+                    var nlp_settings = getJatanaSettings(url,data,"POST");
+                    client.request(nlp_settings)
+                    .then(response => {
+                      console.log(response.macros);
+                      populateApp(client, response.macros);
+                    });
+                  });
+                }
+            }).catch(
+              function onError(error){
+                console.log(error);
+                connectJatana('#error-loading');
+              })
+        })
 
-                });
-          });
-        }
-    }).catch(
-      function onError(error){
-        console.log(error);
-        connectJatana('#error-loading');
       })
-  })
+    })
 }
 
 function populateApp(client,suggested_macros){
-  // getting all macros and then will parse data only for suggested_macros. Reducing api calls.
-  // var settings = {
-  //   url: '/api/v2/macros.json',
-  //   type:'GET',
-  //   dataType: 'json',
-  // };
-  // client.request(settings).then(
-  //   function(data){
-  //     console.log(data);
-  //     console.log(suggested_macros);
-  //     filterMacros(client,data.macros,suggested_macros)
-  //   },
-  //   function(response) {
-  //     showError(response);
-  //   }
-  // )
   real_macro_mapping =[]
   for(var i=0; i<suggested_macros.length;i++){
     title = suggested_macros[i]['macro_title'].split("::")

@@ -2,56 +2,114 @@
 <head>
   <link href="https://cdn.jsdelivr.net/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="main.css" rel="stylesheet">
+  <link href="css/style.zendeskapp.min.css" rel='stylesheet'>
+
 </head>
 <body>
 
-  <div id="content">
+  <div id="content" class="zendesk-main">
     <div class="loader"></div>
   </div>
-  <footer>
+  <!-- <footer>
     <a style='text-align: end' href="https://jatana.ai/support" target="_blank"><br><br><br><br>Report bugs</a>
-  </footer>
+  </footer> -->
+
+  <script id="dashboard-connect" type="text/x-handlebars-template">
+    <div style="text-align: center" class="zendesk-main__content">
+      <h2>Congratulations!</h2>
+        <div class="zendesk-main__text zendesk-main__text--first ">
+        		<p class="zendesk-main__info zendesk-main__info--margin">You have succesfully installed Jatana in your Zendesk account.</p>
+        		<p class="zendesk-main__info">To get started, please connect a Jatana dashboard.</p>
+        </div>
+        <a href="https://app.jatana.ai/auth/signup?identifier={{subdomain}}&platform=Zendesk&email={{email}}&name={{name}}&timezone={{timezone}}" target="_blank" class="button button--orange button--constant">GET STARTED</a>
+      		<p class="zendesk-main__advice">If nothing happens after creating the dashboard, please refresh this page</p>
+      		<img src="img/zendeskApp/Robot1.png" alt="" srcset="img/zendeskApp/Robot1-2x.png 2x" class="first-left">
+      		<img src="img/zendeskApp/Robot2.png" alt="" srcset="img/zendeskApp/Robot2-2x.png 2x" class="first-right">
+    </div>
+  </script>
+
+  <script id="dashboard-connected-no-token" type="text/x-handlebars-template">
+    <div class="zendesk-main__content">
+  		<h2>Awesome!</h2>
+  		<div class="zendesk-main__text zendesk-main__text--second">
+    		<p class="zendesk-main__info zendesk-main__info--margin">You have succesfully connected a dashboard with your Zendesk account</p>
+    		<p class="zendesk-main__info">To enable communication, paste the authetication token in the app settings page</p>
+	    </div>
+  		<a href="https://app.jatana.ai/" target="_blank" class="button button--orange button--constant">GET TOKEN</a>
+  		<p class="zendesk-main__advice">If nothing happens after creating the dashboard, please refresh this page</p>
+  		<img src="img/zendeskApp/Robot3.png" alt="" srcset="img/zendeskApp/Robot3-2x.png 2x" class="second-left">
+  		<img src="img/zendeskApp/Robot4.png" alt="" srcset="img/zendeskApp/Robot4-2x.png 2x" class="second-right">
+  	</div>
+  </script>
 
   <script id="zendesk-connect" type="text/x-handlebars-template">
-    <img src="welcome.svg" style="text-align: center;max-width: 50%;padding-left: 75px;" alt="welcome"></div>
-    <div style="text-align: center">
-      <p>Thanks for creating a profile. <br><br>To get Jatana up & running, please grant us access to historical conversations so that we can build a custom AI engine for you. <br>  <a href="https://jatana.motherbot.co/zendesk_profile?subdomain={{subdomain}}" target="_blank">Confirm permission</a></p>
-    </div>
+    <div class="zendesk-main__content  zendesk-main__content--background3">
+      		<h2>Awesome!</h2>
+      		<div class="zendesk-main__text zendesk-main__text--second">
+	      		<p class="zendesk-main__info">You have succesfully connected a dashboard with your Zendesk account<br><br>
+              To get started, enable access to your historic data.</p>
+			</div>
+      		<a href="https://zendesk.jatana.ai/zendesk_profile?identifier={{subdomain}}&platform=Zendesk&email={{email}}&name={{name}}&timezone={{timezone}}" target="_blank" class="button button--orange button--constant">CONFIRM</a>
+      		<p class="zendesk-main__advice">If nothing happens after creating the dashboard, please refresh this page</p>
+      	</div>
   </script>
-  <script id="dashboard-connect" type="text/x-handlebars-template">
-    <img src="welcome.svg" style="text-align: center;max-width: 50%;padding-left: 75px;" alt="welcome"></div>
-    <div style="text-align: center">
-      <p>Congratulations! <br>You have successfully added Jatana to your Zendesk! <br>To get started, please create your profile on our dashboard by clicking <a href="https://app.jatana.ai/register?subdomain={{subdomain}}" target="_blank">here</a> <br> </p>
-    </div>
-  </script>
-  <script id="error-loading" type="text/x-handlebars-template">
-    <div style="text-align: center">
 
-      <p>Woops!! <br>We are unable to connect with our services at this point of time, please contact us at <a href="mailto:getstarted@jatana.ai">getstarted@jatana.ai</a> </p>
+
+  <script id="error-loading" type="text/x-handlebars-template">
+    <div class="zendesk-main__content zendesk-main__content--background">
+          <h2>Woops!</h2>
+          <div class="zendesk-main__text zendesk-main__text--4th">
+            <p class="zendesk-main__info">We are unable to connect with our services at this point of time.</p>
+          </div>
+          <a href="mailto:getstarted@jatana.ai" class="button button--orange button--constant button--contact">CONTACT SUPPORT</a>
+    </div>
+  </script>
+
+  <script id="error-nlp" type="text/x-handlebars-template">
+    <div class="zendesk-main__content zendesk-main__content--background">
+          <h2>Woops!</h2>
+          <div class="zendesk-main__text zendesk-main__text--4th">
+            <p class="zendesk-main__info">{{message}}</p>
+            <p class="zendesk-main__info">{{code}}</p>
+          </div>
+          <a href="mailto:getstarted@jatana.ai" class="button button--orange button--constant button--contact">CONTACT SUPPORT</a>
     </div>
   </script>
 
   <script id="in-progress" type="text/x-handlebars-template">
-    <div style="text-align: center">
-      <p>We are currently analyzing your data, please give us some time.</p>
-    </div>
+    <div class="zendesk-main__content">
+  		<h2>You are all set!</h2>
+  		<div class="zendesk-main__text zendesk-main__text--fourth">
+    		<p class="zendesk-main__info zendesk-main__info--margin">You'll be notified by email when Jatana has completed the analysis of your data.</p>
+    		<p class="zendesk-main__info">In the meantime, book a one on one with one of our experts and learn how to get the most of Jatana.</p>
+    	</div>
+  		<a href="https://meetings.hubspot.com/luis35" target="_blank" class="button button--orange button--constant">BOOK NOW</a>
+  	</div>
   </script>
 
   <script id="requester-template" type="text/x-handlebars-template">
 
     <table>
     {{#each this}}
-    <tr>
-      <td>{{title}}</td>
-      <td> {{confidence}} Confidence</td>
-      <td class="data"><button class="button2 button" onclick=applyMacro({{id}}) data-value=macro_{{id}}>Apply</button></td>
-    </tr>
+    <div class="zendesk-main__macros">
+            <div>
+              <h2>{{title}}</h2>
+              <p> Confidence - {{confidence}}%</p>
+            </div>
+            <a href="#" onclick=applyMacro({{id}}) data-value=macro_{{id}} class="button button--orange button--apply">APPLY</a>
+          </div>
     {{/each}}
     </table>
   </script>
 
   <script id="error-template" type="text/x-handlebars-template">
-    <p>{{status}} - {{statusText}} error. Please report a bug at the link below.</p>
+    <div class="zendesk-main__content zendesk-main__content--background">
+          <h2>Woops!</h2>
+          <div class="zendesk-main__text zendesk-main__text--4th">
+            <p class="zendesk-main__info">We are unable to connect with our services at this point of time.</p>
+          </div>
+          <a href="mailto:getstarted@jatana.ai" class="button button--orange button--constant button--contact">CONTACT SUPPORT</a>
+    </div>
   </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>

@@ -1,15 +1,26 @@
 {
   "triggers":{
       "auto_apply_macro":{
-    		"title": "AutoMacroAPI",
+    		"title": "Jatana Auto Reply [System App Trigger]",
     		"active": true,
     		"actions": [{
     			"field": "notification_target",
-    			"value": ["auto_macro_target", "{\"title\":\"{{ticket.title}}\",\n\"description\":\"{{ticket.description}}\",\n\"status\":\"{{ticket.status}}\",\n\"comment\":\"{{ticket.comments[0].value}}\",\"id\":\"{{ticket.id}}\",\"url\":\"{{ticket.url}}\"}"]
+    			"value": ["auto_macro_target", "{\"title\":\"{{ticket.title}}\",\n\"description\":\"{{ticket.description}}\",\n\"status\":\"{{ticket.status}}\",\n\"comment\":\"{{ticket.comments[0].value}}\",\"id\":\"{{ticket.id}}\",\"url\":\"{{ticket.url}}\",\n\"current_user_email\":\"{{current_user.email}}\",\"requester_id\":\"{{ticket.requester.id}}\",\"current_user_id\":\"{{current_user.id}}\"}"]
     		}],
-    		"conditions": {	"all": [{"field": "status","operator": "is","value": "new"}],"any": []},
+    		"conditions": {	"all": [{"field":"update_type","operator":"is","value":"Create"}],"any": []},
     		"description": "Auto Apply Macros",
     		"raw_title": "Auto Answering"
+    	},
+      "manual_updates":{
+    		"title": "Jatana Manual Usage [System App Trigger]",
+    		"active": true,
+    		"actions": [{
+    			"field": "notification_target",
+    			"value": ["manual_usage", "{\"title\":\"{{ticket.title}}\",\n\"description\":\"{{ticket.description}}\",\n\"status\":\"{{ticket.status}}\",\n\"comment\":\"{{ticket.comments[0].value}}\",\"id\":\"{{ticket.id}}\",\"url\":\"{{ticket.url}}\",\n\"current_user_email\":\"{{current_user.email}}\",\"requester_id\":\"{{ticket.requester.id}}\",\"current_user_id\":\"{{current_user.id}}\"}"]
+    		}],
+    		"conditions": {	"all": [{"field": "comment_is_public","value": "true"}],"any": [{"field":"update_type","operator":"is","value":"Change"}]},
+    		"description": "Track Zendesk manual usage",
+    		"raw_title": "Jatana Manual Usage"
     	}
   },
   "targets": {
@@ -17,8 +28,22 @@
       "type": "http_target",
       "method":"post",
       "content_type":"application/json",
-      "target_url":"http://motherbot.co/zendesk/",
+      "target_url":"https://zendesk.jatana.ai/trigger_auto_macro",
       "title":"JATANA Smart Suggestion"
+    },
+    "manual_usage": {
+      "type": "http_target",
+      "method":"post",
+      "content_type":"application/json",
+      "target_url":"https://zendesk.jatana.ai/manual_usage",
+      "title":"JATANA Manual Mertics"
+    },
+    "reserve_endpoint":{
+      "type": "http_target",
+      "method":"post",
+      "content_type":"application/json",
+      "target_url":"https://zendesk.jatana.ai/reserve_endpoint",
+      "title":"JATANA Reserve "
     }
   }
 }

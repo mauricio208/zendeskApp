@@ -1,9 +1,9 @@
 {
   "name": "Jatana",
   "author": {
-    "name": "Animesh Pratap",
-    "email": "animesh@jatana.ai",
-    "url": "http://jatana.ai/"
+    "name": "Jatana",
+    "email": "support@jatana.ai",
+    "url": "http://help.jatana.ai/"
   },
   "defaultLocale": "en",
   "private": false,
@@ -12,8 +12,8 @@
       "ticket_sidebar": "assets/iframe.html"
     }
   },
-  "domainWhitelist": ["nlp.motherbot.co","spider.motherbot.co","jatana.motherbot.co"],
-  "version": "1.1",
+  "domainWhitelist": ["nlp.motherbot.co","jatana.motherbot.co","app.jatana.ai","zendesk.jatana.ai","nlp.jatana.ai"],
+  "version": "1.5",
   "frameworkVersion": "2.0",
   "parameters": [
     {
