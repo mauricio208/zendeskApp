@@ -34,11 +34,16 @@ function applyMacro (id) {
       checkAndApply(client,actions[i])
     }
     client.get('currentUser').then(currentUser => {
-      var macro_analytics_url = "https://zendesk.jatana.ai/macro_applied"
-      var user_data = {'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset}
-      var macro_analytics_settings = getJatanaSettings(macro_analytics_url,user_data,'POST')
-      client.request(macro_analytics_settings).then( analytics_response =>{console.log(analytics_response);})
-    })
+      client.get('ticket').then(function(tkt) {
+        client.get('currentAccount').then(account =>{
+          var macro_analytics_url = "https://zendesk.jatana.ai/macro_applied"
+          var user_data = {'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset,'macro_id':id,'ticket_id':tkt.ticket.id,"identifier":account.currentAccount.subdomain.trim()}
+          console.log(user_data);
+          var macro_analytics_settings = getJatanaSettings(macro_analytics_url,user_data,'POST')
+          client.request(macro_analytics_settings).then( analytics_response =>{console.log(analytics_response);})
+        });
+      });
+    });
   },
   function(response) {
     console.error(response.responseText);
@@ -144,9 +149,18 @@ function checkaccountstate(client){
                     var nlp_settings = getJatanaSettings(url,data,"POST");
                     client.request(nlp_settings)
                     .then(response => {
-                      console.log(response.macros);
-                      populateApp(client, response.macros);
-                    });
+                      if (response.hasOwnProperty('Message')){
+                        connectJatana('#error-nlp',data=response)
+                      }
+                      else{
+                        console.log(response.macros);
+                        populateApp(client, response.macros);
+                      }
+                    }).catch(
+                      function onError(error){
+                        console.log(error);
+                        connectJatana('#error-loading');
+                      })
                   });
                 }
             }).catch(
