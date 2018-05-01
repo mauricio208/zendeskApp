@@ -16,31 +16,17 @@
 
   <script id="dashboard-connect" type="text/x-handlebars-template">
     <div style="text-align: center" class="zendesk-main__content">
-      <h2>Congratulations!</h2>
-        <div class="zendesk-main__text zendesk-main__text--first ">
-        		<p class="zendesk-main__info zendesk-main__info--margin">You have succesfully installed Jatana in your Zendesk account.</p>
-        		<p class="zendesk-main__info">To get started, please connect a Jatana dashboard.</p>
-        </div>
-        <a href="https://app.jatana.ai/auth/signup?identifier={{subdomain}}&platform=Zendesk&email={{email}}&name={{name}}&timezone={{timezone}}" target="_blank" class="button button--orange button--constant">GET STARTED</a>
-      		<p class="zendesk-main__advice">If nothing happens after creating the dashboard, please refresh this page</p>
-      		<img src="img/zendeskApp/Robot1.png" alt="" srcset="img/zendeskApp/Robot1-2x.png 2x" class="first-left">
-      		<img src="img/zendeskApp/Robot2.png" alt="" srcset="img/zendeskApp/Robot2-2x.png 2x" class="first-right">
+      <h2 style='margin-bottom: 15px;'>Congratulations!</h2>
+      <p class="zendesk-main__info zendesk-main__info--margin" >Start by creating a dashboard</p>
+      <a href="https://app.jatana.ai/auth/signup?identifier={{subdomain}}&platform=Zendesk&email={{email}}&name={{name}}&timezone={{timezone}}" target="_blank" class="button button--orange button--constant">CREATE</a>
+      <h2 style='margin-bottom: 15px; margin-top: 30px'>Dashboard created?</h2>
+      <p class="zendesk-main__info zendesk-main__info--margin" style='zIndex: 10;'>Connect it with Zendesk</p>
+      <a href="https://app.jatana.ai/auth/login?identifier={{subdomain}}" target="_blank" class="button button--orange button--constant">CONNECT</a>
+      <p class="zendesk-main__advice">If nothing happens after creating the dashboard, please refresh this page</p>
+      <img src="img/zendeskApp/Robot2.png" alt="" srcset="img/zendeskApp/Robot2-2x.png 2x" class="first-right">
     </div>
   </script>
 
-  <script id="dashboard-connected-no-token" type="text/x-handlebars-template">
-    <div class="zendesk-main__content">
-  		<h2>Awesome!</h2>
-  		<div class="zendesk-main__text zendesk-main__text--second">
-    		<p class="zendesk-main__info zendesk-main__info--margin">You have succesfully connected a dashboard with your Zendesk account</p>
-    		<p class="zendesk-main__info">To enable communication, paste the authetication token in the app settings page</p>
-	    </div>
-  		<a href="https://app.jatana.ai/" target="_blank" class="button button--orange button--constant">GET TOKEN</a>
-  		<p class="zendesk-main__advice">If nothing happens after creating the dashboard, please refresh this page</p>
-  		<img src="img/zendeskApp/Robot3.png" alt="" srcset="img/zendeskApp/Robot3-2x.png 2x" class="second-left">
-  		<img src="img/zendeskApp/Robot4.png" alt="" srcset="img/zendeskApp/Robot4-2x.png 2x" class="second-right">
-  	</div>
-  </script>
 
   <script id="zendesk-connect" type="text/x-handlebars-template">
     <div class="zendesk-main__content  zendesk-main__content--background3">
@@ -94,7 +80,6 @@
     <div class="zendesk-main__macros">
             <div>
               <h2>{{title}}</h2>
-              <p> Confidence - {{confidence}}%</p>
             </div>
             <a href="#" onclick=applyMacro({{id}}) data-value=macro_{{id}} class="button button--orange button--apply">APPLY</a>
           </div>

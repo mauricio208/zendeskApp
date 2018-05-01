@@ -23,16 +23,9 @@ function getJatanaSettings(url,data_obj,method){
 
 
 function applyMacro (id) {
-  console.log(id);
-  var client = ZAFClient.init();
-  client.request('/api/v2/macros/'+id+'.json').then(
-  function(macro) {
-    console.log(macro);
-    var actions = macro.macro.actions
-    console.log(actions);
-    for(var i=0;i<actions.length;i++){
-      checkAndApply(client,actions[i])
-    }
+   console.log(id);
+   var client = ZAFClient.init();
+   client.invoke('macro', id).then(applied=>{
     client.get('currentUser').then(currentUser => {
       client.get('ticket').then(function(tkt) {
         client.get('currentAccount').then(account =>{
@@ -51,65 +44,6 @@ function applyMacro (id) {
 );
 }
 
-function checkAndApply(client,action){
-  if(action.field==="status"){
-    client.set('ticket.status',action.value)
-  }
-  else if (action.field==="priority") {
-    client.set('ticket.priority', action.value)
-  }
-  else if (action.field==="sharedWith") {
-    client.set('ticket.sharedWith', action.value)
-  }
-  else if (action.field==="set_tags") {
-    console.log(action.field);
-    console.log(action.value);
-
-    client.set('ticket.tags', action.value.split(" "));
-  }
-  else if (action.field==="type") {
-    client.set('ticket.type', action.value)
-  }
-  else if (action.field==='brand') {
-    client.set('ticket.brand', action.value)
-  }
-  else if (action.field==='comment_value') {
-    console.log(action.value);
-    cmnt = ""
-    if (action.value.constructor === Array){
-      for(var i=0;i<action.value.length;i++){
-        if(action.value[i].indexOf("channel:all")== -1){
-          cmnt = cmnt.concat("\n"+action.value[i])
-        }
-        else{
-          continue;
-        }
-      }
-      console.log(cmnt);
-      cmnt = cmnt.replace("↵","\n")
-      console.log(cmnt);
-    }
-    else{
-      cmnt = action.value;
-    }
-    client.set('comment.text', cmnt)
-  }
-  else if (action.field==='comment_value_html') {
-    client.invoke('comment.appendHtml',action.value)
-  }
-  else if (action.field==='comment_mode_is_public'&& action.value==true) {
-    client.set('comment.type', 'publicReply')
-  }
-  else if (action.field==="assignee_id"&& action.value !='current_user') {
-    client.set('ticket.assignee', { userId: action.value })
-  }
-  else if (action.field==="group_id"&& action.value !='current_groups') {
-    client.set('ticket.assignee', { groupId: action.value })
-  }
-  else if (action.value === 'subject') {
-    client.set('ticket.subject',action.value)
-  }
-}
 
 
 //////////////////////////////////
