@@ -11,10 +11,10 @@
     "support": {
       "ticket_sidebar": "assets/iframe.html",
       "modal": "assets/modal.html",
-      "background": "assets/iframe.html"
+      "background": "assets/background.html"
     }
   },
-  "domainWhitelist": ["nlp.motherbot.co","jatana.motherbot.co","app.jatana.ai","zendesk.jatana.ai","nlp.jatana.ai"],
-  "version": "1.5",
-  "frameworkVersion": "1.4"
+  "domainWhitelist": ["app.jatana.ai","zendesk.jatana.ai","nlp.jatana.ai"],
+  "version": "1.6",
+  "frameworkVersion": "2.0"
 }

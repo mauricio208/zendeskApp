@@ -33,40 +33,6 @@ function getKey(client,key){
 }
 
 
-function getModalClient(client, location) {
-  return client.get("instances").then(function(data) {
-      var instances = data["instances"]
-      for(var key in instances) {
-          var instance = instances[key]
-          if(instance["location"] == location) {
-              return client.instance(instance.instanceGuid)
-          }
-      }
-      return null
-  })
-}
-
-function showAuthModal(client,identifier) {
-  getKey(client,KEY_STATE).then(state=>{
-    getKey(client,KEY_MODAL_SHOWN).then(modal_shown=>{
-      getModalClient(client,'modal').then(modalInstance =>{
-        if (!modalInstance && !KEY_MODAL_SHOWN && (state != 'InProgress' || state !='Live')){
-          setKey(client,KEY_MODAL_SHOWN,true);
-          client.invoke("instances.create", {
-              location: "modal",
-              url: "assets/modal.html#identifier="+identifier
-          }).then(modalContext => {
-            var modalClient = client.instance(modalContext['instances.create'][0].instanceGuid);
-             return modalClient.invoke('resize', { width: '500px', height: '250px' });
-          });
-          // return client.invoke('resize', { width: "500px", height: "250px" });
-        }
-      })
-    })
-  })
-}
-
-
 //////////////////////////////////
 // template functions           //
 //////////////////////////////////
@@ -105,35 +71,10 @@ function applyMacro (id) {
 
 $(function() {
   var client = ZAFClient.init();
-  registeredEvent(client);
+  // registeredEvent(client);
   client.invoke('resize', { width: '100%', height: '400px' });
   ticketWorkflow(client);
 });
-
-function registeredEvent(client){
-  client.on('app.registered', function(context){
-    client.get('currentAccount').then(account => {
-
-      // domain_url = account.currentAccount.subdomain
-      //integration_id = metadata.installationId.toString()
-      client.get('currentUser').then(currentUser => {
-        var userData = currentUser.currentUser
-        email = userData.email
-        fullName = userData.name
-        //subdomain = /(https:\/\/)(.)+\.(zendesk)\.(com)/.exec(domain_url)[0].split("//")[1].split(".")[0]
-        identifier = account.currentAccount.subdomain
-        role = userData.role
-        url = 'https://zendesk.jatana.ai/state?identifier='+encodeURI(identifier)+'&email='+encodeURI(email)+'&name='+encodeURI(fullName)+'&role='+encodeURI(role)
-        var state_settings = getJatanaSettings(url,null,"GET");
-        client.request(state_settings).then(resp =>{
-          setKey(client,KEY_STATE,resp.state);
-          showAuthModal(client,identifier)
-        });
-      });
-    });
-  });
-}
-
 
 
 function ticketWorkflow(client){
