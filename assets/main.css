@@ -58,3 +58,9 @@ tr>td {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.zendesk-main__conte {
+  background-image: url(img/zendeskApp/background_flat.png);
+  color: #ffffff;
+  height: 250px;
+}

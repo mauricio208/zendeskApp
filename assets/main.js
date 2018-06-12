@@ -2,12 +2,16 @@
 // Jatana API                   //
 //////////////////////////////////
 
+KEY_MODAL_SHOWN = 'modal_shown';
+KEY_STATE = 'jatana_state';
+
+
 
 function getJatanaSettings(url,data_obj,method){
   var settings = {
     url: url,
-    headers: {"Authorization": "Bearer {{setting.token}}"},
-    secure: true,
+    //headers: {"Authorization": "Bearer "+token},
+    cors: true,
     type: method
   };
   if (data_obj != null){
@@ -15,6 +19,53 @@ function getJatanaSettings(url,data_obj,method){
   }
   return settings;
 }
+
+function setKey(client,key,val){
+  return client.metadata().then(function(metadata) {
+    return localStorage.setItem(metadata.installationId + ":" + key, val)
+  });
+}
+
+function getKey(client,key){
+  return client.metadata().then(function(metadata) {
+    return localStorage.getItem(metadata.installationId + ":" + key)
+  });
+}
+
+
+function getModalClient(client, location) {
+  return client.get("instances").then(function(data) {
+      var instances = data["instances"]
+      for(var key in instances) {
+          var instance = instances[key]
+          if(instance["location"] == location) {
+              return client.instance(instance.instanceGuid)
+          }
+      }
+      return null
+  })
+}
+
+function showAuthModal(client,identifier) {
+  getKey(client,KEY_STATE).then(state=>{
+    getKey(client,KEY_MODAL_SHOWN).then(modal_shown=>{
+      getModalClient(client,'modal').then(modalInstance =>{
+        if (!modalInstance && !KEY_MODAL_SHOWN && (state != 'InProgress' || state !='Live')){
+          setKey(client,KEY_MODAL_SHOWN,true);
+          client.invoke("instances.create", {
+              location: "modal",
+              url: "assets/modal.html#identifier="+identifier
+          }).then(modalContext => {
+            var modalClient = client.instance(modalContext['instances.create'][0].instanceGuid);
+             return modalClient.invoke('resize', { width: '500px', height: '250px' });
+          });
+          // return client.invoke('resize', { width: "500px", height: "250px" });
+        }
+      })
+    })
+  })
+}
+
 
 //////////////////////////////////
 // template functions           //
@@ -25,6 +76,8 @@ function getJatanaSettings(url,data_obj,method){
 function applyMacro (id) {
    console.log(id);
    var client = ZAFClient.init();
+   client.set('comment.text', "")
+   client.invoke('comment.appendHtml',"")
    client.invoke('macro', id).then(applied=>{
     client.get('currentUser').then(currentUser => {
       client.get('ticket').then(function(tkt) {
@@ -52,34 +105,59 @@ function applyMacro (id) {
 
 $(function() {
   var client = ZAFClient.init();
+  registeredEvent(client);
   client.invoke('resize', { width: '100%', height: '400px' });
-  checkaccountstate(client).then(state=>{console.log(state);})
+  ticketWorkflow(client);
 });
 
-function checkaccountstate(client){
+function registeredEvent(client){
+  client.on('app.registered', function(context){
+    client.get('currentAccount').then(account => {
+
+      // domain_url = account.currentAccount.subdomain
+      //integration_id = metadata.installationId.toString()
+      client.get('currentUser').then(currentUser => {
+        var userData = currentUser.currentUser
+        email = userData.email
+        fullName = userData.name
+        //subdomain = /(https:\/\/)(.)+\.(zendesk)\.(com)/.exec(domain_url)[0].split("//")[1].split(".")[0]
+        identifier = account.currentAccount.subdomain
+        role = userData.role
+        url = 'https://zendesk.jatana.ai/state?identifier='+encodeURI(identifier)+'&email='+encodeURI(email)+'&name='+encodeURI(fullName)+'&role='+encodeURI(role)
+        var state_settings = getJatanaSettings(url,null,"GET");
+        client.request(state_settings).then(resp =>{
+          setKey(client,KEY_STATE,resp.state);
+          showAuthModal(client,identifier)
+        });
+      });
+    });
+  });
+}
+
+
+
+function ticketWorkflow(client){
     client.get('currentUser').then(currentUser => {
       console.log(currentUser);
       client.get('currentAccount').then(account =>{
         client.metadata().then(metadata => {
-            url = 'https://zendesk.jatana.ai/state?identifier='+encodeURI(account.currentAccount.subdomain)+'&email='+encodeURI(currentUser.currentUser.email)+'&name='+encodeURI(currentUser.currentUser.name)+'&role='+encodeURI(currentUser.currentUser.role)+'&timezone='+encodeURI(currentUser.currentUser.timeZone.formattedOffset)
-            var state_settings = getJatanaSettings(url,null,"GET");
-            client.request(state_settings).then(resp =>{
-                console.log(resp);
-                if (resp.state==="DashboardConnect"){
+            getKey(client,KEY_STATE).then(state =>{
+                if (state==="DashboardConnect"){
                   connectJatana('#dashboard-connect',{'subdomain':account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset});
                 }
-                else if (resp.state==="ZendeskConnect") {
+                else if (state==="ZendeskConnect") {
                     connectJatana('#zendesk-connect',{'subdomain':account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset});
                 }
-                else if (resp.state==="InProgress") {
+                else if (state==="InProgress") {
                     connectJatana('#in-progress');
                 }
-                else if (resp.state === "Live" ){
+                else if (state === "Live"){
                   client.get('ticket').then(function(data) {
                     var description = data.ticket.description;
                     console.log(data.ticket.description);
-                    url = 'https://nlp.jatana.ai/api/v2.0/query?q='+encodeURI(data.ticket.description)
-                    data = {'q':data.ticket.description}
+                    url = 'https://zendesk.jatana.ai/api/nlp_suggestion/'
+                    //url = 'https://nlp.jatana.ai/api/v2.0/query?q='+encodeURI(data.ticket.description)
+                    data = {'query':data.ticket.description,"identifier":account.currentAccount.subdomain.trim()}
                     var nlp_settings = getJatanaSettings(url,data,"POST");
                     client.request(nlp_settings)
                     .then(response => {

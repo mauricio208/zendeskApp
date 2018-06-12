@@ -1,0 +1,70 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <meta charset="utf-8">
+  <link href="https://cdn.jsdelivr.net/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="main.css" rel="stylesheet">
+  <link href="css/style.zendeskapp.min.css" rel='stylesheet'>
+  <script type="text/javascript" src="https://assets.zendesk.com/apps/sdk/2.0/zaf_sdk.js"></script>
+
+</head>
+<body>
+  <div class="zendesk-main__conte" style="height: 250px;">
+        <div class="zendesk-main__text" style="width: 450px;height: 160px;margin: 0 auto 59px;text-align: justify;margin-bottom: 20px;padding-top: 10px;padding-bottom: 5px;">
+          <p class="zendesk-main__info" style="font-size: 15px;">Next step, you will be asked to authorize Jatana to access your data. It will take the AI engine in between 1 to 3 days to analyze your historic customer interactions and learn how to respond to the queries that your company is receiving. By clicking the “Authorize the app” button below you agree to our
+            <a href="https://www.jatana.ai/terms" style="color: white;"> Terms and Conditions</a> as well as our <a href="https://www.jatana.ai/gdpr-whitepaper" style="color: white;">Data Protection Policy</a>. If you have any questions please reach out to Jatana.</p>
+        </div>
+        <a href="#" target="_blank" class="button button--orange" style="color: white;margin-bottom: 20px;">Authorize the app</a>
+      </div>
+  <!-- https://github.com/zendesk/zendesk_app_framework_sdk -->
+  <script type="text/javascript" src="https://assets.zendesk.com/apps/sdk/2.0/zaf_sdk.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+  <script>
+
+      function getModalClient() {
+        var client = ZAFClient.init();
+        client.get("instances").then(function(data) {
+          console.log(data);
+            var instances = data["instances"]
+            for(var key in instances) {
+                var instance = instances[key]
+                if(instance["location"] == 'modal') {
+                   cl = client.instance(instance.instanceGuid)
+                   cl.invoke('destroy');
+                }
+            }
+            return null
+        })
+      }
+
+      $(document).ready(function(){
+        console.log(window.location.hash);
+        $('.button').each(function(){
+          var params = parseParams(window.location.hash);
+          console.log(params);
+          var identifier = params.identifier;
+            var url = "https://zendesk.jatana.ai/zendesk_profile?platform=Zendesk&identifier="+identifier;
+            $(this).attr("href", url); // Set herf value
+            var client = ZAFClient.init();
+            console.log("done");
+        });
+
+    });
+    $('.zendesk-main__conte .button.button--orange').click(function(){
+      console.log("event!! ")
+       getModalClient();
+    });
+
+    function parseParams(param_string){
+      var param_sub = param_string.replace('#','').split('&');
+      var param_obj = _.reduce(param_sub, function(memo, k){
+        kv = k.split('=');
+        memo[kv[0]] = kv[1];
+        return memo;
+      }, {});
+      return param_obj;  //Might be overbuilt but I like it because it returns a very pretty object
+    };
+
+  </script>
+</body>
+</html>
