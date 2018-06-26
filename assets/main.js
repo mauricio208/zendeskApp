@@ -45,6 +45,7 @@ function applyMacro (id) {
    client.set('comment.text', "")
    client.invoke('comment.appendHtml',"")
    client.invoke('macro', id).then(applied=>{
+     console.log(id);
     client.get('currentUser').then(currentUser => {
       client.get('ticket').then(function(tkt) {
         client.get('currentAccount').then(account =>{
@@ -58,11 +59,38 @@ function applyMacro (id) {
     });
   },
   function(response) {
-    console.error(response.responseText);
+    console.error(response);
   }
 );
 }
 
+function getMacroComment(client,macro){
+  var id = macro.id
+  return client.request('/api/v2/macros/'+id+'.json').then(response =>{
+    var actions = response.macro.actions
+    var cmnt = ""
+    for(var i=0;i<actions.length;i++){
+      if(actions[i].field==='comment_value'){
+        if (actions[i].value.constructor === Array){
+          for(var i=0;i<actions[i].value.length;i++){
+            if(actions[i].value[i].indexOf("channel:all")== -1){
+              cmnt = cmnt.concat("\n"+actions[i].value[i])
+            }
+            else{
+              continue;
+            }
+          }
+          cmnt = cmnt.replace("↵","\n")
+        }
+        else{
+          cmnt = actions[i].value;
+        }
+      }
+    }
+    macro.comment = cmnt
+    return macro
+  });
+}
 
 
 //////////////////////////////////
@@ -132,11 +160,22 @@ function populateApp(client,suggested_macros){
   for(var i=0; i<suggested_macros.length;i++){
     title = suggested_macros[i]['macro_title'].split("::")
     title = title[title.length-1]
-    real_macro_mapping.push({'confidence':suggested_macros[i]['confidence']*100,'title':title,'id':suggested_macros[i]['macro_id']});
-    console.log(real_macro_mapping);
+    id_mapping = {360007400834: 360007790033, 360007400874: 360007791713, 360007400914: 360007791733,360007222133: 360008003554, 360007222333: 360008004314}
+    real_macro_mapping.push({'confidence':suggested_macros[i]['confidence']*100,'title':title,'id':id_mapping[suggested_macros[i]['macro_id']],"comment":""});
+    var result = real_macro_mapping.map(macro =>{
+      macrp = macro.defered
+      macro = getMacroComment(client,macro)
+      console.log(macro);
+      console.log("haha");
+      return macro;
+    });
+    Promise.all(result).then(values=>{
+      console.log(values);
+      createAndShowHTML(values);
+    })
+    console.log(result);
   }
-  console.log(real_macro_mapping);
-  createAndShowHTML(real_macro_mapping);
+
 }
 
 

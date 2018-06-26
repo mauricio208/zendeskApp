@@ -64,3 +64,18 @@ tr>td {
   color: #ffffff;
   height: 250px;
 }
+
+.inner-comment {
+    height: 100px;
+    max-height: 100px;
+    overflow-y: scroll;
+  }
+
+.hidden_comment{
+  line-height: 15px;
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+}
