@@ -42,8 +42,6 @@ function getKey(client,key){
 function applyMacro (id) {
    console.log(id);
    var client = ZAFClient.init();
-   client.set('comment.text', "")
-   client.invoke('comment.appendHtml',"")
    client.invoke('macro', id).then(applied=>{
     client.get('currentUser').then(currentUser => {
       client.get('ticket').then(function(tkt) {
