@@ -1,21 +1,50 @@
 <html>
 <head>
-  <link href="https://cdn.jsdelivr.net/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="main.css" rel="stylesheet">
-  <link href="css/style.zendeskapp.min.css" rel='stylesheet'>
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-MMR6494');</script>
-  <!-- End Google Tag Manager -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/custom.css">
+
+  <style>
+
+      .card{
+        max-width: 280px !important;
+      }
+      .onboarding-card{
+            max-width: 300px !important;
+        }
+      /*.card .heading .card-title span::before {*/
+          /*content: "";*/
+          /*position: absolute;*/
+          /*top: 0;*/
+          /*left: 0;*/
+          /*width: 200px;*/
+          /*height: 100%;*/
+          /*transition-duration: 1s;*/
+          /*z-index: -1;*/
+          /*color: #5E0DAD;*/
+      /*}*/
+
+      /*.card:hover .heading .card-title span::before {*/
+          /*position: absolute;*/
+          /*content: "Delivery Problem";*/
+      /*}*/
+      .content-box .wrap {
+          margin-bottom: 5px;
+          font-size: 13px;
+          line-height: 16px;
+          letter-spacing: 0.1px;
+          color: #fff;
+          overflow: auto;
+          max-height: 180px;
+      }
+
+  </style>
+
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MMR6494"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
   <div id="content" class="zendesk-main">
     <div class="loader"></div>
   </div>
@@ -24,30 +53,42 @@
   </footer> -->
 
   <script id="dashboard-connect" type="text/x-handlebars-template">
-    <div class="zendesk-main__content  zendesk-main__content">
-      		<h2>Connected with Jatana?</h2>
-      		<div class="zendesk-main__text zendesk-main__text--second">
-	      		<p class="zendesk-main__info">At the next page, you will be asked to authorize the app to let Jatana AI access your data.<br><br>
-              To get started, enable access to your historic data.</p>
-			     </div>
-      		<a href="https://zendesk.jatana.ai/zendesk_profile?identifier={{subdomain}}&platform=Zendesk&email={{email}}&name={{name}}&timezone={{timezone}}" target="_blank" class="button button--orange button--constant">CONFIRM</a>
-      		<p class="zendesk-main__advice">If nothing happens after creating the dashboard, please refresh this page</p>
-          <img src="img/zendeskApp/Robot2.png" alt="" srcset="img/zendeskApp/Robot2-2x.png 2x" class="first-right">
-      	</div>
-    <!-- <div style="text-align: center" class="zendesk-main__content">
-      <h2 style='margin-bottom: 15px;'>Congratulations!</h2>
-      <p class="zendesk-main__info zendesk-main__info--margin" >Start by creating a dashboard</p>
-      <a href="https://app.jatana.ai/auth/signup?identifier={{subdomain}}&platform=Zendesk&email={{email}}&name={{name}}&timezone={{timezone}}" target="_blank" class="button button--orange button--constant">CREATE</a>
-      <h2 style='margin-bottom: 15px; margin-top: 30px'>Connected with Jatana?</h2>
-      <p class="zendesk-main__info zendesk-main__info--margin" style='zIndex: 10;'>At the next page, you will be asked to authorize the app to let Jatana AI access your data.</p>
-      <a href="https://app.jatana.ai/auth/login?identifier={{subdomain}}" target="_blank" class="button button--orange button--constant">CONNECT</a>
-      <p class="zendesk-main__advice">If nothing happens after creating the dashboard, please refresh this page</p>
-      <img src="img/zendeskApp/Robot2.png" alt="" srcset="img/zendeskApp/Robot2-2x.png 2x" class="first-right">
-    </div> -->
+    <section class="ui-section" style="height: 400px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 m-auto">
+                    <div class="onboarding-card">
+                        <div class="onboarding-card-body card-one">
+                            <h3 class="awesome-">
+                                Awesome!
+                                <span class="imoji1">
+                                    <img src="images/clap.png">
+                                </span>
+                            </h3>
+                            <p class="you-have-succesfully">You have succesfully installed Jatana in your Zendesk account! </p>
+                            <img src="images/jatana.png" srcset="images/jatana.png 2x, images/jatana.png 3x" class="Jatana-01">
+                            <div class="button-bx">
+                              <a href="https://zendesk.jatana.ai/zendesk_profile?identifier={{subdomain}}&platform=Zendesk&email={{email}}&name={{name}}&timezone={{timezone}}" target="_blank">
+                                <button class="Rectangle-6 onboarding-btn" type="button" >
+                                    <span class="Button-text">
+                                        GRANT ACCESS
+                                    </span>
+                                </button>
+                              </a>
+                            </div>
+                            <p class="to-get-started-plea">
+                                To get started, please enable access to your historic data.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
   </script>
 
 
-  <script id="zendesk-connect" type="text/x-handlebars-template">
+  <!-- <script id="zendesk-connect" type="text/x-handlebars-template">
     <div class="zendesk-main__content  zendesk-main__content--background3">
       		<h2>Awesome!</h2>
       		<div class="zendesk-main__text zendesk-main__text--second">
@@ -57,17 +98,38 @@
       		<a href="https://zendesk.jatana.ai/zendesk_profile?identifier={{subdomain}}&platform=Zendesk&email={{email}}&name={{name}}&timezone={{timezone}}" target="_blank" class="button button--orange button--constant">CONFIRM</a>
       		<p class="zendesk-main__advice">If nothing happens after creating the dashboard, please refresh this page</p>
       	</div>
-  </script>
+  </script> -->
 
 
   <script id="error-loading" type="text/x-handlebars-template">
-    <div class="zendesk-main__content zendesk-main__content--background">
-          <h2>Woops!</h2>
-          <div class="zendesk-main__text zendesk-main__text--4th">
-            <p class="zendesk-main__info">We are unable to connect with our services at this point of time.</p>
-          </div>
-          <a href="mailto:getstarted@jatana.ai" class="button button--orange button--constant button--contact">CONTACT SUPPORT</a>
-    </div>
+    <section class="ui-section" style="height: 400px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 m-auto">
+                    <div class="onboarding-card">
+                        <div class="onboarding-card-body">
+                            <h3 class="Woops-">
+                                Woops!
+                                <span class="imoji3">
+                                    <img src="images/smile.png">
+                                </span>
+                            </h3>
+                            <p class="We-are-unable-to-con">
+                                We are unable to connect with our service at this point of time.
+                            </p>
+                            <a href="mailto:getstarted@jatana.ai">
+                            <button class="Rectangle-5 onboarding-btn" type="button">
+                                <span class="Button-text">
+                                    CONNECT SUPPORT
+                                </span>
+                            </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
   </script>
 
   <script id="error-nlp" type="text/x-handlebars-template">
@@ -81,54 +143,234 @@
     </div>
   </script>
 
+ <script id="expired-client" type="text/x-handlebars-template">
+  <section class="ui-section" style="height: 400px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 m-auto">
+                <div class="onboarding-card">
+                    <div class="onboarding-card-body card-two">
+                        <h3 class="your-free-trial-has">
+                            Your FREE TRIAL has expired.
+                        </h3>
+                        <p class="upgrade-to-our-paid">
+                            Upgrade to our paid plan. <br> to continue using Jatana.
+                        </p>
+                        <h1 class="currency">0.10 $</h1>
+                        <span class="per-ticket">per ticket</span>
+                        <p class="no-setup-monthly-o">
+                            <img src="images/tick-inside-circle.png" srcset="images/tick-inside-circle.png 2x, images/tick-inside-circle.png 3x" class="checkmark">
+                            <span>No setup, monthly, or hidden fees</span>
+                        </p>
+                        <p class="no-setup-monthly-o">
+                            <img src="images/cash.png" srcset="images/cash.png 2x, images/cash.png 3x" class="wallet">
+                            <span>Pay only for what you use </span>
+                        </p>
+                        <p class="no-setup-monthly-o">
+                            <img src="images/bar-chart.png" srcset="images/bar-chart.png 2x, images/bar-chart.png 3x" class="stats3">
+                            <span>No credit card required</span>
+                        </p>
+                        <a href="https://app.jatana.ai" target="_blank">
+                          <button class="Rectangle-6 onboarding-btn" type="button">
+                              <span class="Button-text">
+                                  UPGRADE PLAN
+                              </span>
+                          </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+</script>
+
   <script id="in-progress" type="text/x-handlebars-template">
-    <div class="zendesk-main__content">
+    <section class="ui-section" style="height: 400px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 m-auto">
+                    <div class="onboarding-card">
+                        <div class="onboarding-card-body">
+                            <h3 class="you-are-all-set-">
+                                You are all set!
+                                <span class="imoji1">
+                                    <img src="images/thumb.png" alt="imoji1">
+                                </span>
+                            </h3>
+                            <p class="the-training-of-your">The training of your engine is ongoing. You'll be notified by email once completed!</p>
+                            <img src="images/jatana_ilustration_05.png" srcset="images/jatana_ilustration_05.png, images/jatana_ilustration_05.png" class="jatana_ilustration_05">
+                            <h1 class="while-the-training-i">
+                                <span class="text-style-1">While the training is ongoing…</span>
+                            </h1>
+                            <p class="-book-a-one-to-one">
+                                <span class="imoji2">
+                                    <img src="images/indicator.png">
+                                </span>
+                                Book a one-to-one consultation with one of our experts and learn how to get the most of Jatana.
+                            </p>
+                            <a href="https://meetings.hubspot.com/luis35" target="_blank">
+                            <button class="Rectangle-6 onboarding-btn" type="button">
+                                <span class="Button-text">
+                                    BOOK NOW
+                                </span>
+                            </button>
+                          </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- <div class="zendesk-main__content">
   		<h2>You are all set!</h2>
   		<div class="zendesk-main__text zendesk-main__text--fourth">
     		<p class="zendesk-main__info zendesk-main__info--margin">You'll be notified by email when Jatana has completed the analysis of your data.</p>
     		<p class="zendesk-main__info">In the meantime, book a one on one with one of our experts and learn how to get the most of Jatana.</p>
     	</div>
   		<a href="https://meetings.hubspot.com/luis35" target="_blank" class="button button--orange button--constant">BOOK NOW</a>
-  	</div>
+  	</div> -->
   </script>
 
   <script id="requester-template" type="text/x-handlebars-template">
-
-    <table>
     {{#each this}}
-    <div class="zendesk-main__macros">
-            <div>
-              <!-- <h2 style="line-height: 15px;">{{title}}</h2> -->
-<!--
-              <a href="#" data-target="#demo" data-toggle="collapse" >CLICKABLE TEXT WOULD GO HERE INSTEAD OF BUTTON</a>
-              <div class="collapse out" id="demo">&nbsp;
-                <p>Hidden Content goes here.</p>
-              </div> -->
-              <a class=".hidden_comment" data-toggle="collapse" href=#demo{{id}} style="display: block;height: 100%;width: 100%;text-decoration: none;">{{title}}</a>
-                <div id=demo{{id}} class="collapse">
-                  {{comment}}
+    <section class="ui-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5 m-auto">
+                        <div class="card card{{@index}}">
+                            <div class="card-body">
+                                <div class="heading">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-arrow-left heading-arrow" onclick=applyMacro({{id}}) data-value=macro_{{id}}></i>
+
+                                        <span class="title">{{title}}</span>
+                                        <span class="apply">APPLY</span>
+                                    </h5>
+                                </div>
+
+
+                                <div>
+                                    <ul class="nav">
+                                        <li class="nav-item col-customone text-right">
+                                            <a class="btn btn-custom btn{{@index}} nav-link ml-auto clickone" data-toggle="pill" data-state="0" href="#one_{{@index}}" role="button" aria-expanded="false" aria-controls="one_{{@index}}">
+                                                <span class="b-bottom">PREVIEW</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item col-customtwo text-left" style="display: {{#if (eq access true)}}block{{else}}none{{/if}}">
+                                            <a class="btn btn-custom btn_{{@index}} nav-link mr-auto clicktwo" data-toggle="pill" data-state="0" href="#two_{{@index}}" role="button" aria-expanded="false" aria-controls="two_{{@index}}">
+                                                <span class="b-bottom">AUTOMATION
+                                                    <span class="onoff onoff{{@index}}">
+                                                      {{#if (eq state false)}}
+                                                          Off
+                                                      {{else}}
+                                                          On
+                                                      {{/if}}
+                                                    </span>
+                                                </span>
+                                                <span class="count count{{@index}}" style="background: {{#if (eq state false)}}#999{{else}}{{/if}}" }>
+                                                    <span class="nmbr nmbr{{@index}}" macro={{id}} identifier={{identifier}} state={{#if (eq state false)}}unchecked{{else}}checked{{/if}}> {{threshold}}</span>%</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="tab-content">
+                                    <div class=" tab-pane fade " id="one_{{@index}}">
+                                        <div class="content-box cb1">
+                                            <span class="overlay"></span>
+                                            <div class="wrap">{{comment}}</div>
+                                        </div>
+                                    </div>
+                                    <div class=" tab-pane fade" id="two_{{@index}}">
+                                        <div class="content-box">
+
+                                            <div class="counter-box">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-number button{{@index}}" data-type="minus" data-field="quant[1]">
+                                                        <i class="fs fa-minu plus01">-</i>
+                                                    </button>
+                                                </span>
+
+                                                <span class="counter counter{{@index}}" style="color: {{#if (eq state false)}}#999{{else}}#fff{{/if}}">
+                                                    <span class="counter-number cn{{@index}}" >{{threshold}}</span>
+                                                    <span class="parcent">%</span>
+                                                </span>
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-number button{{@index}}-" data-type="plus" data-field="quant[1]">
+                                                        <i class="fs fa-plu minus1">+</i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                            <h4 class="counter-box-content cbc1" style="color: {{#if (eq state false)}}#999{{else}}#fff{{/if}}">Adjust confidence level for automatic responses</h4>
+                                            <div class="switcher">
+                                                <label class="switch">
+                                                    <input id="tbtn" type="checkbox" {{state}} class="switch{{@index}}">
+                                                    <span class="slider round"></span>
+                                                </label>
+                                                <span class="ShowActv act{{@index}}" macro={{id}} identifier={{identifier}}>
+                                                  {{#if (eq state false)}}
+                                                      Non Active
+                                                  {{else}}
+                                                      Active
+                                                  {{/if}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <a href="#" onclick=applyMacro({{id}}) data-value=macro_{{id}} class="button button--orange button--apply">APPLY</a>
-          </div>
-    {{/each}}
-    </table>
+        </section>
+        {{/each}}
   </script>
 
   <script id="error-template" type="text/x-handlebars-template">
-    <div class="zendesk-main__content zendesk-main__content--background">
-          <h2>Woops!</h2>
-          <div class="zendesk-main__text zendesk-main__text--4th">
-            <p class="zendesk-main__info">We are unable to connect with our services at this point of time.</p>
-          </div>
-          <a href="mailto:getstarted@jatana.ai" class="button button--orange button--constant button--contact">CONTACT SUPPORT</a>
-    </div>
+    <section class="ui-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 m-auto">
+                    <div class="onboarding-card">
+                        <div class="onboarding-card-body">
+                            <h3 class="Woops-">
+                                Woops!
+                                <span class="imoji3">
+                                    <img src="images/smile.png">
+                                </span>
+                            </h3>
+                            <p class="We-are-unable-to-con">
+                                We are unable to connect with our service at this point of time.
+                            </p>
+                            <a href="mailto:getstarted@jatana.ai">
+                              <button class="Rectangle-5 onboarding-btn" type="button">
+                                  <span class="Button-text">
+                                      CONNECT SUPPORT
+                                  </span>
+                              </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
   </script>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/jquery/3.0.0/jquery.min.js"></script>
   <script type="text/javascript" src="https://assets.zendesk.com/apps/sdk/2.0/zaf_sdk.js"></script>
-  <script type="text/javascript" src="main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+  <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+
+  <script src="main.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/custom.js"></script>
+
+  <script src="js/custom-scroll.js"></script>
 </body>
 
 </html>

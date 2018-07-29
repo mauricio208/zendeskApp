@@ -1,0 +1,130 @@
+ @font-face { 
+  font-family: Mariupol; 
+  src: url('mariupol/Mariupol-Bold.otf') format('otf');
+  src: url('mariupol/Mariupol-Medium.otf') format('otf');
+  src: url('mariupol/Mariupol-Regular.otf') format('otf');
+  src: url('mariupol/Mariupol-Symbols.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+} 
+
+img{max-width: 100%}
+body{ font-family: Mariupol, sans-serif; font-size: 10px; font-style: normal; font-stretch: normal; background: #ECFAFF;}
+h1, h2, h3, h4, h5, a, div {font-family: Mariupol, sans-serif}
+.you-are-all-set- span{font-family: emojione;}
+.imoji1{width: 24px; display: inline-block; vertical-align: bottom;}
+.imoji2{width: 16px; display: inline-block; vertical-align: text-bottom;}
+.imoji1 img{}
+.imoji3{ width: 26px; display: inline-block; vertical-align: text-bottom;}
+.imoji3 img{}
+.onboarding-card {position: relative; border: 0px solid rgba(0, 0, 0, 0); border-radius: 0; padding: 0px; margin: 8px auto 0; max-width: 250px; min-height: 400px; background-image: linear-gradient(165deg, #2000c8, #7811b2);}
+.onboarding-card-body {padding: 0; padding-left: 23px; padding-right: 30px; position: absolute; top: 50%; transform: translateY(-50%); -webkit-transform: translateY(-50%); -moz-transform: translateY(-50%);}
+.Woops- {font-family: Mariupol;font-size: 24px;font-weight: 500;font-style: normal;font-stretch: normal;line-height: 1;letter-spacing: -0.2px;color: #eafbf9;margin: 0;}
+.We-are-unable-to-con {font-family: Mariupol;font-size: 13px;font-weight: normal;font-style: normal;font-stretch: normal;line-height: 1.23;letter-spacing: normal;color: #ffffff;margin: 18px 0;}
+.Rectangle-5 {border-radius: 3px; border: solid 1px rgba(233, 255, 0, 0.50); text-align: center; padding: 15px 19px; display: inline-block; background: transparent; cursor: pointer;}
+.Rectangle-5 .Button-text{font-family: Mariupol; font-size: 14px; font-weight: 500; font-style: normal; font-stretch: normal; line-height: 1.14; letter-spacing: 0.2px; text-align: center; color: #e9ff00; border: 0;}
+.onboarding-bt{background: transparent; cursor: pointer;}
+.onboarding-bt:focus{outline: 1px dotted; outline: 0px auto -webkit-focus-ring-color;}
+.your-free-trial-has{font-family: Mariupol; font-size: 24px; font-weight: 500; font-style: normal; font-stretch: normal; line-height: 1; letter-spacing: -0.2px; color: #eafbf9;}
+.upgrade-to-our-paid{font-family: Mariupol; font-size: 13px; font-weight: normal; font-style: normal; font-stretch: normal; line-height: 1.23; letter-spacing: normal; color: #ffffff;}
+.currency{font-family: Mariupol; font-size: 48px; font-weight: bold; font-style: normal; font-stretch: normal; line-height: 0.9; letter-spacing: -1.5px; color: #ffffff; margin-bottom: 0;}
+.per-ticket{font-family: Mariupol; font-size: 16px; font-weight: bold; font-style: normal; font-stretch: normal; line-height: 1.13; letter-spacing: -0.1px; color: #ffffff; margin-bottom: 25px; display: inline-block;}
+.card-two{padding-left: 23px;padding-right:18px;}
+.no-setup-monthly-o { font-family: Mariupol; font-size: 12px; font-weight: normal; font-style: normal; font-stretch: normal; line-height: 1.33; letter-spacing: normal; color: #ffffff; margin-bottom: 14px;}
+.no-setup-monthly-o span{    margin-left: 5px;}
+.checkmark{width: 18px; height: 18px; object-fit: contain;}
+.wallet{width: 18px; height: 17px; object-fit: contain;}
+.stats3{width: 18px; height: 18px; object-fit: contain;}
+.you-are-all-set-{font-family: Mariupol; font-size: 24px; font-weight: 500; font-style: normal; font-stretch: normal; line-height: 1; letter-spacing: -0.2px; color: #eafbf9; margin-bottom: 13px;}
+.the-training-of-your{max-width: 198px; font-family: Mariupol; font-size: 13px; font-weight: normal; font-style: normal; font-stretch: normal; line-height: 1.23; letter-spacing: normal; color: #ffffff; margin-bottom: 7px;}
+.jatana_ilustration_05{object-fit: contain; max-width: 100%; width: 100%;}
+.while-the-training-i{font-family: Mariupol; font-size: 16px; font-weight: bold; font-style: normal; font-stretch: normal; line-height: 1; letter-spacing: -0.1px; color: #eafbf9; margin-top: 19px; margin-bottom: 11px;}
+.while-the-training-i .text-style-1{font-family: LucidaGrande;}
+.-book-a-one-to-one{font-family: Mariupol; font-size: 13px; font-weight: normal; font-style: normal; font-stretch: normal; line-height: 1.23; letter-spacing: normal; color: #ffffff; margin-bottom: 12px;}
+.Rectangle-6{border-radius: 3px; background-color: #e9ff00; padding: 16px 25px; border: 0;}
+.Rectangle-6 .Button-text{font-family: Mariupol; font-size: 14px; font-weight: bold; font-style: normal; font-stretch: normal; line-height: 1.14; letter-spacing: 0.2px; text-align: center; color: #20034e; text-shadow: 0.5px 0.5px 0.5px #ffffff;}
+.card-one{padding-left: 0 !important; padding-right: 0 !important; padding-top: 20px;}
+.awesome-{width: 198px; height: 24px; font-family: Mariupol; font-size: 24px; font-weight: 500; font-style: normal; font-stretch: normal; line-height: 1; letter-spacing: -0.2px; color: #eafbf9; padding-left: 23px; padding-right: 30px; text-align: left; margin-bottom: 14px;}
+.you-have-succesfully{font-family: Mariupol; font-size: 13px; font-weight: normal; font-style: normal; font-stretch: normal; line-height: 1.23; letter-spacing: normal; color: #ffffff; padding-left: 23px; padding-right: 35px; margin-bottom: 0;}
+.Jatana-01{max-width: 100%; width: 100%; object-fit: contain;}
+.button-bx{padding: 24px 30px 16px 23px;}
+.to-get-started-plea{font-family: Mariupol; font-size: 13px; font-weight: normal; font-style: normal; font-stretch: normal; line-height: 1.23; letter-spacing: normal; color: #ffffff; padding-left: 23px; padding-right: 45px;}
+
+
+
+
+/****************************** Final Ui ************************/
+
+.btn.focus, .btn:focus{outline: 0; box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);}
+.card{position: relative; display: -ms-flexbox; display: flex; -ms-flex-direction: column; flex-direction: column; min-width: 0; word-wrap: break-word; background-color: #fff; background-clip: border-box; border: 0px solid rgba(0, 0, 0, 0); border-radius: 5px; box-shadow: 0 0 5px #c5c3c3; padding: 6px 0 6px; max-width: 234px; margin: 8px auto 0;}
+.card-body{padding: 0;}
+.heading{padding: 0 10px; padding-bottom: 6px;}
+.heading .card-title{padding: 0; margin: 0; color: #20034e; font-size: 1.25rem; cursor: pointer; margin-bottom: -1px;}
+.heading .card-title span{font-weight: 700;font-size: 15px;margin-left: 5px;position: relative;}
+.heading-arrow{border: 2px solid #650db7; border-radius: 50%; width: 18px; height: 18px; color: #650db7; text-align: center; line-height: 15px; font-size: 10px;}
+.card:hover{}
+.card:hover .heading .card-title{}
+.card:hover .heading .card-title span{}
+.card .nav .nav-item{}
+.card .nav .nav-item{padding: 0;}
+.btn-custom{display: inline-block; color: #819ae6 !important; font-size: 10px; border: 0; border-radius: 0; padding: 3px 6px 3px; border-top-left-radius: 2px; border-top-right-radius: 2px; margin-bottom: 0;}
+.nav li:first-child .btn-custom{padding-top: 5px !important; padding-bottom: 3px !important;}
+.btn-custom .b-bottom{border-bottom: 1px dotted;display: inline-block;padding-bottom: 0px;}
+.btn-custom:hover .b-bottom{border-bottom: 1px dotted #ffffff00;}
+.btn-custom .onoff{}
+.btn-custom .count{background: #ca3fe6; color: #fff; border-radius: 16px; width: 30px; margin-left: 3px; display: inline-block; height: 16px; line-height: 20px;}
+.content-box{background: #20034E;color: #fff;font-size: 13px;padding: 12px;padding-bottom: 5px;border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;}
+
+.tab-content .content-box.cb1{max-height: 200px; overflow: hidden; padding-bottom: 15px;}
+.p-bottom{padding-bottom: 0;}
+.tab-content .content-box.cb1 .overlay::after{
+ content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 20px; background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 99%, rgba(0,0,0,0.65) 100%); background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 99%,rgba(0,0,0,0.65) 100%); background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 99%,rgba(0,0,0,0.65) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); border-radius: 5px;
+}
+.tab-content{}
+.content-box p{margin-bottom: 5px; font-size: 13px; line-height: 16px; letter-spacing: 0.1px; color: #fff;}
+.content-box .username{color: #e9ff00;}
+.content-box ol{padding-left: 12px; margin: 0;}
+.content-box ol li{font-size: 13px; line-height: 16px; letter-spacing: 0.1px; color: #fff;}
+.col-customone{-ms-flex: 0 0 38%; flex: 0 0 38%; max-width: 38%;}
+.col-customtwo{}.btn-custom.active{background: #20034e; color: #fff !important;}
+.btn-custom:hover{}.btn-custom .b-bottom, .btn-custom.show .b-bottom{border-bottom: 1px dotted #819ae6;}
+.btn-custom.show.active .b-bottom{border-bottom: 1px dotted #819ae600;}
+.btn-custom:hover .b-bottom{border-color:#819ae6;}
+.btn-custom:hover .b-bottom{}
+.counter-box{display: flex;justify-content: space-between;align-items: flex-start;}
+.counter-box .input-group-btn{}
+.counter-box button{background: transparent; color: #ca3fe6; border: 1px solid #ca3fe6; border-radius: 20px; font-weight: 100; width: 40px; text-align: center; height: 40px; font-size: 24px; line-height: 0px; padding: 0; margin: 0;}
+.counter-box .input-group-btn:hover button{background: #ca3fe6; color: #fff;}
+.counter-box button i{display: inline-block; font-style: initial;}
+.counter-box .counter{font-size: 44px; letter-spacing: -1.4px; line-height: 1; font-weight: 600;}
+.counter-box .counter .counter-number{}
+.counter-box .counter .parcent{}
+.switch{position: relative; display: inline-block; width: 42px; height: 24px; vertical-align: middle; margin: 0;}
+.switch input{display:none;}
+.slider{position: absolute; cursor: pointer; width: 100%; height: 100%; left: 0; right: 0; bottom: 0; background-color: #999999; -webkit-transition: .4s; transition: .4s;}
+.slider:before{position: absolute; content: ""; height: 18px; width: 18px; bottom: 50%; background-color: white; -webkit-transition: .4s; transition: .4s; /* transform: translateY(45%); */}
+input:checked + .slider{background-color: #ca3fe6;}
+input:focus + .slider{box-shadow: 0 0 1px #2196F3;}
+input:checked + .slider:before{-webkit-transform: translate(21px,50%); -ms-transform: translate(21px,50%); transform: translate(21px,50%);}.slider.round{border-radius: 34px;}.slider.round:before{border-radius: 50%; -webkit-transform: translate(2px,50%); -ms-transform: translate(2px,50%); transform: translate(2px,50%);}.ShowActv{display: inline-block; vertical-align: middle; margin-left: 12px; line-height: 12px; letter-spacing: 0.1px; font-size: 13.5px;}.counter-box-content{font-size: 13px; line-height: 16px; margin: 15px 0 18px; max-width: 200px;}
+.switcher{padding-bottom: 12px;}
+
+/****************************** Scrollbar ************************/
+.mCS-scroll-theme.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{ background-color: #ca3fe6; }
+.mCS-scroll-theme.mCSB_scrollTools .mCSB_draggerRail{ background-color: #20034e; }
+
+.card-title {
+  position: relative;
+}
+.card-title span {
+   position: absolute !important;
+   left: 25px;
+}
+ .card-title span.apply {
+   display: none;
+   color: #e9ff00;
+   z-index: 100;
+ }
+ .card-title span.title.fade {
+   opacity: 0.2;
+   color: #20034e;
+ }
