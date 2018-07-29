@@ -134,7 +134,6 @@ function ticketWorkflow(client){
                   client.get('ticket').then(function(data) {
                     var description = data.ticket.description;
                     console.log(data.ticket.description);
-                    var t0 = performance.now();
                     url = 'https://zendesk.jatana.ai/api/nlp_suggestion/'
                     //url = 'https://nlp.jatana.ai/api/v2.0/query?q='+encodeURI(data.ticket.description)
                     data = {'query':data.ticket.description,"identifier":account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email}
@@ -147,8 +146,6 @@ function ticketWorkflow(client){
                       else{
                         console.log(response.macros);
                         populateApp(client, response.macros,account.currentAccount.subdomain.trim());
-                        var t1 = performance.now();
-                        console.log('TIME TAKEN- ', (t1 - t0).toFixed(4))
                       }
                     }).catch(
                       function onError(error){
@@ -173,7 +170,7 @@ function populateApp(client,suggested_macros,identifier){
   real_macro_mapping =[]
   for(var i=0; i<suggested_macros.length;i++){
     id_mapping = {360007400834: 360007790033, 360007400874: 360007791713, 360007400914: 360007791733,360007222133: 360008003554, 360007222333: 360008004314}
-    real_macro_mapping.push({'confidence':suggested_macros[i]['confidence']*100,'title':suggested_macros[i]['macro_title'],'id':id_mapping[suggested_macros[i]['macro_id']],"comment":"",
+    real_macro_mapping.push({'confidence':suggested_macros[i]['confidence']*100,'title':suggested_macros[i]['macro_title'],'id':suggested_macros[i]['macro_id'],"comment":"",
     "threshold":suggested_macros[i]['threshold'],"state":suggested_macros[i]['state'],"identifier":identifier,"access":suggested_macros[i]["access"]});
     var result = real_macro_mapping.map(macro =>{
       macrp = macro.defered

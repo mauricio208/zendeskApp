@@ -475,8 +475,8 @@ $(document).on('DOMSubtreeModified', '.nav span.count.count', function() {
   threshold = parseInt(threshold.match(/\d+/),10)
   var identifier = $('span[macro='+macro_id+']').attr('identifier')
   var id_mapping = {360007790033:360007400834, 360007791713:360007400874, 360007791733:360007400914,360008003554:360007222133, 360008004314:360007222333}
-  console.log({ state: macro_state, threshold: threshold, macro_id:id_mapping[macro_id],identifier:identifier })
-  $.post( "http://35.204.220.190:8009/macro_update/", { state: macro_state, threshold: threshold, macro:id_mapping[macro_id],identifier:identifier })
+  console.log({ state: macro_state, threshold: threshold, macro_id:macro_id,identifier:identifier })
+  $.post( "http://35.204.220.190:8009/macro_update/", { state: macro_state, threshold: threshold, macro:macro_id,identifier:identifier })
 });
 
 $(document).on('DOMSubtreeModified', '.ShowActv', function() {
@@ -489,6 +489,6 @@ $(document).on('DOMSubtreeModified', '.ShowActv', function() {
     macro_state=false
   }
   var id_mapping = {360007790033:360007400834, 360007791713:360007400874, 360007791733:360007400914,360008003554:360007222133, 360008004314:360007222333}
-  console.log({ state: macro_state, macro_id:id_mapping[macro_id],identifier:identifier })
-  $.post( "https://zendesk.jatana.ai/macro_update/", { state: macro_state, macro:id_mapping[macro_id],identifier:identifier })
+  console.log({ state: macro_state, macro_id:macro_id,identifier:identifier })
+  $.post( "https://zendesk.jatana.ai/macro_update/", { state: macro_state, macro:macro_id,identifier:identifier })
 });
