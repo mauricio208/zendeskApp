@@ -124,7 +124,7 @@ function ticketWorkflow(client){
                   connectJatana('#dashboard-connect',{'subdomain':account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset});
                 }
                 else if (state==="InActive") {
-                    connectJatana('#expired-client');
+                    connectJatana('#expired-client',{'subdomain':account.currentAccount.subdomain.trim()});
                 }
                 else if (state==="InProgress") {
                     connectJatana('#in-progress');

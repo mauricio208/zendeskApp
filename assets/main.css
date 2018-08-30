@@ -79,3 +79,131 @@ tr>td {
     margin: 0;
     padding: 0;
 }
+
+.popup-overlay{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    opacity: 0;
+    background-color: #ecfaff;
+}
+.popup-overlay.show{
+    opacity: .5;
+}
+.access_popup_container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    outline: 0;
+}
+.access_popup_container.show{
+    opacity: 1;
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.access_popup_container  .access_popup_block{
+    position: relative;
+    width: auto;
+    pointer-events: none;
+    max-width: 500px;
+    margin: 1.75rem auto;
+}
+.access_popup_container .access_popup_block .access_popup{
+    text-align: center;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border-radius: 6px;
+    outline: 0;
+    box-shadow: 1px 2px 14px rgba(4, 53, 206, 0.2);
+}
+.access_popup_container .access_popup_block .access_popup .access_popup_header{padding: 20px;padding-bottom: 10px;}
+.access_popup_container .access_popup_block .access_popup .access_popup_header span{
+    font-family: Mariupol;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1;
+    letter-spacing: -0.1px;
+    text-align: center;
+    color: #20034e;
+}
+.access_popup_container .access_popup_block .access_popup .access_popup_body{padding: 10px 20px;}
+.access_popup_container .access_popup_block .access_popup .access_popup_text{
+    font-family: Mariupol;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: center;
+    color: #455792;
+}
+.access_popup_container .access_popup_block .access_popup .access_popup_footer{
+
+padding: 5px 20px;
+}
+.access_popup_container .access_popup_block .access_popup .access_popup_footer a{
+    border-radius: 3px;
+    background-image: linear-gradient(124deg, #2000c8, #7811b2);
+    font-family: Mariupol;
+    font-size: 12px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.33;
+    letter-spacing: 0.1px;
+    text-align: center;
+    color: #ffffff;
+    display: block;
+    max-width: 140px;
+    margin: 0px auto;
+    padding: 12px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.access_popup_container .access_popup_block .access_popup .access_popup_footer_extra{
+    max-width: 260px;margin: 0px auto;padding: 0px 20px;padding-bottom: 10px;}
+.access_popup_container .access_popup_block .access_popup .access_popup_footer_extra .accept_policy{
+    font-family: Mariupol;
+    font-size: 10px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.3;
+    letter-spacing: normal;
+    text-align: center;
+    color: rgba(4, 53, 206, 0.5);
+}
+.access_popup_container .access_popup_block .access_popup .access_popup_footer_extra .accept_policy a{
+color: rgba(4, 53, 206, 0.5);
+}
+.access_popup_container .access_popup_block .access_popup .access_popup_footer_extra .footer_text{
+    opacity: 0.6;
+    font-family: Mariupol;
+    font-size: 10px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.6;
+    letter-spacing: normal;
+    text-align: center;
+    color: #455792;
+}
