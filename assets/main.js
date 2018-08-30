@@ -174,53 +174,10 @@ function populateApp(client,suggested_macros,identifier){
       has_comment = true;
     }
     id_mapping = {360007400834: 360007790033, 360007400874: 360007791713, 360007400914: 360007791733,360007222133: 360008003554, 360007222333: 360008004314}
-    real_macro_mapping.push({'confidence':suggested_macros[i]['confidence']*100,'title':suggested_macros[i]['macro_title'],'id':suggested_macros[i]['macro_id'],"comment": ("comment" in suggested_macros[i])?suggested_macros[i]['comment']:"XXXX",
+    real_macro_mapping.push({'confidence':suggested_macros[i]['confidence']*100,'title':suggested_macros[i]['macro_title'],'id':suggested_macros[i]['macro_id'],"comment": suggested_macros[i]['comment'],
     "threshold":suggested_macros[i]['threshold'],"state":suggested_macros[i]['state'],"identifier":identifier,"access":suggested_macros[i]["access"]});
   }
-    // var result = ;
-  if (has_comment==false){
-      Promise.all(real_macro_mapping.map(macro =>{
-      return client.request('/api/v2/macros/'+macro.id+'.json').then(response =>{
-        var actions = response.macro.actions
-        var cmnt = ""
-        for(var i=0;i<actions.length;i++){
-          if(["comment_value_html","comment_value"].includes(actions[i].field)){
-            if (actions[i].value.constructor === Array){
-              for(var i=0;i<actions[i].value.length;i++){
-                if(actions[i].value[i].indexOf("channel:all")== -1){
-                  cmnt = cmnt.concat("\n"+actions[i].value[i])
-                }
-                else{
-                  continue;
-                }
-              }
-              cmnt = cmnt.replace("↵","\n")
-            }
-            else{
-              cmnt = actions[i].value;
-            }
-          }
-        }
-        macro.comment = cmnt
-        console.log(JSON.stringify(macro));
-        return macro
-      },function onError(error){
-        console.log(error);
-      }).catch(error=>{
-        console.log("error");
-        console.log(error);
-      });
-    }))
-    .then((values)=>{
-      createAndShowHTML(values);
-    }).catch(function(err) {
-        console.error('Error ', err);
-    });
-  }
-  else{
-    console.log("else");
-    createAndShowHTML(real_macro_mapping);
-  }
+   createAndShowHTML(real_macro_mapping);
 
   }
 
