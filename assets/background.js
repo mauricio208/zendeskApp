@@ -1,6 +1,6 @@
 KEY_MODAL_SHOWN = 'modal_shown';
 KEY_STATE = 'jatana_state';
-
+KEY_TOKEN= 'jatana_token';
 
 
 function getJatanaSettings(url,data_obj,method){
@@ -79,12 +79,24 @@ function registeredEvent(client){
         //subdomain = /(https:\/\/)(.)+\.(zendesk)\.(com)/.exec(domain_url)[0].split("//")[1].split(".")[0]
         identifier = account.currentAccount.subdomain
         role = userData.role
-        url = 'https://zendesk.jatana.ai/state?identifier='+encodeURI(identifier)+'&email='+encodeURI(email)+'&name='+encodeURI(fullName)+'&role='+encodeURI(role)
-        var state_settings = getJatanaSettings(url,null,"GET");
-        client.request(state_settings).then(resp =>{
-          setKey(client,KEY_STATE,resp.state);
-          showAuthModal(client,identifier)
-        });
+        getKey(client,KEY_TOKEN).then(token=>{
+          url = 'https://zendesk.jatana.ai/state?identifier='+encodeURI(identifier)+'&email='+encodeURI(email)+'&name='+encodeURI(fullName)+'&role='+encodeURI(role)
+          if (token){
+            data = {tkn:token};
+          }else{
+            data = null
+          }
+
+          var state_settings = getJatanaSettings(url,data,"GET");
+          client.request(state_settings).then(resp =>{
+            setKey(client,KEY_STATE,resp.state);
+            if (resp.tkn){
+              setKey(client,KEY_TOKEN,resp.tkn);
+            }
+            showAuthModal(client,identifier)
+          });
+        })
+
       });
     });
   });

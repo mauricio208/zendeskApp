@@ -4,7 +4,7 @@
 
 KEY_MODAL_SHOWN = 'modal_shown';
 KEY_STATE = 'jatana_state';
-
+KEY_TOKEN= 'jatana_token';
 
 
 function getJatanaSettings(url,data_obj,method){
@@ -120,6 +120,7 @@ function ticketWorkflow(client){
       client.get('currentAccount').then(account =>{
         client.metadata().then(metadata => {
             getKey(client,KEY_STATE).then(state =>{
+              getKey(client,KEY_TOKEN).then(token =>{
                 if (state==="DashboardConnect"){
                   connectJatana('#dashboard-connect',{'subdomain':account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset});
                 }
@@ -136,10 +137,13 @@ function ticketWorkflow(client){
                     console.log(data.ticket.description);
                     url = 'https://zendesk.jatana.ai/api/nlp_suggestion/'
                     //url = 'https://nlp.jatana.ai/api/v2.0/query?q='+encodeURI(data.ticket.description)
-                    data = {'query':data.ticket.description,"identifier":account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email}
+                    data = {'query':data.ticket.description,"identifier":account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'token':token}
                     var nlp_settings = getJatanaSettings(url,data,"POST");
                     client.request(nlp_settings)
                     .then(response => {
+                      if (response.hasOwnProperty('tkn')){
+                        setKey(client,KEY_TOKEN,response.tkn);
+                      }
                       if (response.hasOwnProperty('Message')){
                         connectJatana('#error-nlp',data=response)
                       }
@@ -155,6 +159,8 @@ function ticketWorkflow(client){
                   });
 
                 }
+              });
+
             }).catch(
               function onError(error){
                 console.log(error);
