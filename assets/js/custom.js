@@ -463,8 +463,9 @@ function uncheckedfour() {
 
 $(document).on('DOMSubtreeModified', '.nav span.count.count', function() {
   console.log("hahahaha");
-  ele = $('span.count.count > span.nmbr')
+  ele = $(this).find('span.nmbr')
   var macro_id = $(ele).attr('macro')
+  console.log(macro_id);
   var macro_state = $('span[macro='+macro_id+']').attr('state')
   if (macro_state==='checked'){
     macro_state=true
@@ -476,7 +477,9 @@ $(document).on('DOMSubtreeModified', '.nav span.count.count', function() {
   var identifier = $('span[macro='+macro_id+']').attr('identifier')
   var id_mapping = {360007790033:360007400834, 360007791713:360007400874, 360007791733:360007400914,360008003554:360007222133, 360008004314:360007222333}
   console.log({ state: macro_state, threshold: threshold, macro_id:macro_id,identifier:identifier })
-  $.post( "https://zendesk.jatana.ai/macro_update/", { state: macro_state, threshold: threshold, macro:macro_id,identifier:identifier })
+  if (identifier || !isNaN(threshold)){
+    $.post( "https://zendesk.jatana.ai/macro_update/", { state: macro_state, threshold: threshold, macro:id_mapping[macro_id],identifier:identifier })
+  }
 });
 
 $(document).on('DOMSubtreeModified', '.ShowActv', function() {

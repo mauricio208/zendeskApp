@@ -1,12 +1,12 @@
- @font-face { 
-  font-family: Mariupol; 
+ @font-face {
+  font-family: Mariupol;
   src: url('mariupol/Mariupol-Bold.otf') format('otf');
   src: url('mariupol/Mariupol-Medium.otf') format('otf');
   src: url('mariupol/Mariupol-Regular.otf') format('otf');
   src: url('mariupol/Mariupol-Symbols.otf') format('otf');
   font-weight: normal;
   font-style: normal;
-} 
+}
 
 img{max-width: 100%}
 body{ font-family: Mariupol, sans-serif; font-size: 10px; font-style: normal; font-stretch: normal; background: #ECFAFF;}
@@ -116,10 +116,11 @@ input:checked + .slider:before{-webkit-transform: translate(21px,50%); -ms-trans
   position: relative;
 }
 .card-title span {
-   position: absolute !important;
+   /*position: absolute !important;*/
    left: 25px;
 }
  .card-title span.apply {
+   position: absolute !important;
    display: none;
    color: #e9ff00;
    z-index: 100;

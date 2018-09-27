@@ -241,8 +241,8 @@
                         <div class="card card{{@index}}">
                             <div class="card-body">
                                 <div class="heading">
-                                    <h5 class="card-title">
-                                        <i class="fas fa-arrow-left heading-arrow" onclick=applyMacro({{id}}) data-value=macro_{{id}}></i>
+                                    <h5 class="card-title"onclick=applyMacro({{id}}) data-value=macro_{{id}}>
+                                        <i class="fas fa-arrow-left heading-arrow" ></i>
 
                                         <span class="title">{{title}}</span>
                                         <span class="apply">APPLY</span>
@@ -268,7 +268,7 @@
                                                       {{/if}}
                                                     </span>
                                                 </span>
-                                                <span class="count count{{@index}}" style="background: {{#if (eq state false)}}#999{{else}}{{/if}}" }>
+                                                <span class="count count{{@index}}" style="background: {{#if (eq state false)}}#999{{else}}{{/if}}" >
                                                     <span class="nmbr nmbr{{@index}}" macro={{id}} identifier={{identifier}} state={{#if (eq state false)}}unchecked{{else}}checked{{/if}}> {{threshold}}</span>%</span>
                                             </a>
                                         </li>
@@ -347,6 +347,37 @@
                               <button class="Rectangle-5 onboarding-btn" type="button">
                                   <span class="Button-text">
                                       CONNECT SUPPORT
+                                  </span>
+                              </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+  </script>
+
+  <script id="empty-response" type="text/x-handlebars-template">
+    <section class="ui-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 m-auto">
+                    <div class="onboarding-card">
+                        <div class="onboarding-card-body">
+                            <h3 class="Woops-">
+                                Zero Suggestions!
+                                <span class="imoji3">
+                                    <img src="images/smile.png">
+                                </span>
+                            </h3>
+                            <p class="We-are-unable-to-con">
+                                There are no suggestions for this ticket.
+                            </p>
+                            <a href="mailto:getstarted@jatana.ai">
+                              <button class="Rectangle-5 onboarding-btn" type="button">
+                                  <span class="Button-text">
+                                      CONTACT SUPPORT
                                   </span>
                               </button>
                             </a>

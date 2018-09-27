@@ -51,7 +51,13 @@ function applyMacro (id) {
           var user_data = {'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset,'macro_id':id,'ticket_id':tkt.ticket.id,"identifier":account.currentAccount.subdomain.trim()}
           console.log(user_data);
           var macro_analytics_settings = getJatanaSettings(macro_analytics_url,user_data,'POST')
-          client.request(macro_analytics_settings).then( analytics_response =>{console.log(analytics_response);})
+          client.request(macro_analytics_settings).then(analytics_response =>{
+          }).then(
+              client.get('ticket.tags').then(tags=>{
+              tags['ticket.tags'].push("_jatana_suggested");
+              client.set('ticket.tags',tags['ticket.tags'])
+            })//,["_jatana_suggested"])
+          )
         });
       });
     });
@@ -134,9 +140,7 @@ function ticketWorkflow(client){
 
                   client.get('ticket').then(function(data) {
                     var description = data.ticket.description;
-                    console.log(data.ticket.description);
                     url = 'https://zendesk.jatana.ai/api/nlp_suggestion/'
-                    //url = 'https://nlp.jatana.ai/api/v2.0/query?q='+encodeURI(data.ticket.description)
                     data = {'query':data.ticket.description,"identifier":account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'token':token}
                     var nlp_settings = getJatanaSettings(url,data,"POST");
                     client.request(nlp_settings)
@@ -146,6 +150,10 @@ function ticketWorkflow(client){
                       }
                       if (response.hasOwnProperty('Message')){
                         connectJatana('#error-nlp',data=response)
+                      }
+                      else if(response.macros.length == 0){
+                        console.log(response.macros);
+                        connectJatana('#empty-response')
                       }
                       else{
                         console.log(response.macros);
