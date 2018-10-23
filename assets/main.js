@@ -43,13 +43,11 @@ function applyMacro (id) {
    console.log(id);
    var client = ZAFClient.init();
    client.invoke('macro', id).then(applied=>{
-     console.log(id);
     client.get('currentUser').then(currentUser => {
       client.get('ticket').then(function(tkt) {
         client.get('currentAccount').then(account =>{
           var macro_analytics_url = "https://zendesk.jatana.ai/macro_applied"
           var user_data = {'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset,'macro_id':id,'ticket_id':tkt.ticket.id,"identifier":account.currentAccount.subdomain.trim()}
-          console.log(user_data);
           var macro_analytics_settings = getJatanaSettings(macro_analytics_url,user_data,'POST')
           client.request(macro_analytics_settings).then(analytics_response =>{
           }).then(
@@ -122,7 +120,6 @@ $(function() {
 
 function ticketWorkflow(client){
     client.get('currentUser').then(currentUser => {
-      console.log(currentUser);
       client.get('currentAccount').then(account =>{
         client.metadata().then(metadata => {
             getKey(client,KEY_STATE).then(state =>{
@@ -152,12 +149,10 @@ function ticketWorkflow(client){
                         connectJatana('#error-nlp',data=response)
                       }
                       else if(response.macros.length == 0){
-                        console.log(response.macros);
                         connectJatana('#empty-response')
                       }
                       else{
-                        console.log(response.macros);
-                        populateApp(client, response.macros,account.currentAccount.subdomain.trim());
+                        populateApp(client, response.macros,account.currentAccount.subdomain.trim(),response.search);
                       }
                     }).catch(
                       function onError(error){
@@ -180,7 +175,7 @@ function ticketWorkflow(client){
     })
 }
 
-function populateApp(client,suggested_macros,identifier){
+function populateApp(client,suggested_macros,identifier,search){
   real_macro_mapping =[]
   has_comment = false;
   for(var i=0; i<suggested_macros.length;i++){
@@ -191,7 +186,7 @@ function populateApp(client,suggested_macros,identifier){
     real_macro_mapping.push({'confidence':suggested_macros[i]['confidence']*100,'title':suggested_macros[i]['macro_title'],'id':suggested_macros[i]['macro_id'],"comment": suggested_macros[i]['comment'],
     "threshold":suggested_macros[i]['threshold'],"state":suggested_macros[i]['state'],"identifier":identifier,"access":suggested_macros[i]["access"]});
   }
-   createAndShowHTML(real_macro_mapping);
+   createAndShowHTML(real_macro_mapping,search,identifier);
 
   }
 
@@ -200,16 +195,12 @@ function filterMacros(client,macros,suggested_macros){
   macro_data_list = []
   suggested_mapping = {}
   cleaned_data = []
-  console.log(suggested_macros);
-  console.log(macros);
   //suggested_mapping = {114111411094:"89",114111411194:"80",114111411174:"40", 114111411154:"0"};
   for (var i=0;i<suggested_macros.length;i++){
     suggested_mapping[parseInt(suggested_macros[i]['macro_id'])] = suggested_macros[i]['confidence'];
-    console.log(suggested_mapping);
   }
 
   for(var i=0;i<macros.length;i++){
-    console.log(macros[i].id);
     if (macros[i].id in suggested_mapping){
       // if (parseInt(suggested_mapping[macros[i].id])>=90){
       //   applyMacro(macros[i].id);
@@ -229,7 +220,6 @@ function filterMacros(client,macros,suggested_macros){
 
 function showMacrosBasicData(data_list,suggested_mapping){
   var resp = []
-  console.log(data_list);
   for(var i=0;i<data_list.length;i++){
     di = {"id":data_list[i].id,"title":data_list[i].title,"confidence":suggested_mapping[data_list[i].id]}
     resp.push(di)
@@ -237,16 +227,20 @@ function showMacrosBasicData(data_list,suggested_mapping){
   createAndShowHTML(resp)
 }
 
-function createAndShowHTML(data) {
-  console.log(data);
+function createAndShowHTML(data,search,identifier) {
+  var f_data = {}
+  f_data.macros = data;
+  f_data.identifier = identifier;
+  f_data.search = true
+
+  console.log(f_data);
   var source = $("#requester-template").html();
   var template = Handlebars.compile(source);
-  var html = template(data);
+  var html = template(f_data);
   $("#content").html(html);
 }
 
 function connectJatana(tag,data=null){
-  console.log(tag);
   var source = $(tag).html();
   var template = Handlebars.compile(source);
   var html = template(data);

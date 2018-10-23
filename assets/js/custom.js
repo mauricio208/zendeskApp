@@ -478,7 +478,7 @@ $(document).on('DOMSubtreeModified', '.nav span.count.count', function() {
   var id_mapping = {360007790033:360007400834, 360007791713:360007400874, 360007791733:360007400914,360008003554:360007222133, 360008004314:360007222333}
   console.log({ state: macro_state, threshold: threshold, macro_id:macro_id,identifier:identifier })
   if (identifier || !isNaN(threshold)){
-    $.post( "https://zendesk.jatana.ai/macro_update/", { state: macro_state, threshold: threshold, macro:id_mapping[macro_id],identifier:identifier })
+    $.post( "https://zendesk.jatana.ai/macro_update/", { state: macro_state, threshold: threshold, macro:macro_id,identifier:identifier })
   }
 });
 
@@ -495,3 +495,45 @@ $(document).on('DOMSubtreeModified', '.ShowActv', function() {
   console.log({ state: macro_state, macro_id:macro_id,identifier:identifier })
   $.post( "https://zendesk.jatana.ai/macro_update/", { state: macro_state, macro:macro_id,identifier:identifier })
 });
+
+
+//  Search
+
+function fnSetCloseBtn($this){
+  $($this).next(".close-icon").removeClass("show");
+  $($this).next(".close-icon").removeClass("active");
+  if($($this).val()!=undefined && $($this).val().length>0){
+      if($($this).is(":focus")){
+        $($this).next(".close-icon").addClass("show");
+      }else{
+        $($this).next(".close-icon").addClass("active");
+      }
+  }
+}
+
+function fnEmptySearch($this){
+  $("#inputsearch").val("");
+  $($this).removeClass("show");
+  $($this).removeClass("active");
+  var identifier = $(this).attr('identifier')
+  fnGetSearchData(identifier);
+}
+
+function fnGetSearchData(identifier){
+  var search=$("#inputsearch").val();
+  console.log(identifier);
+  $.post( "https://zendesk.jatana.ai/api/macro_search", { search_text: search, identifier:identifier},function(resp){
+    // console.log(resp);
+    // var resp = jQuery.parseJSON(resp);
+    createAndShowHTML(resp,false,identifier)
+  })
+}
+
+function fnSearchData(event){
+   element = event.target;
+   console.log(element);
+  var identifier = $(element).attr('identifier')
+  if(event.keyCode==13){
+    fnGetSearchData(identifier);
+  }
+}

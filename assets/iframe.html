@@ -232,100 +232,124 @@
   	</div> -->
   </script>
 
+
   <script id="requester-template" type="text/x-handlebars-template">
-    {{#each this}}
-    <section class="ui-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 m-auto">
-                        <div class="card card{{@index}}">
-                            <div class="card-body">
-                                <div class="heading">
-                                    <h5 class="card-title"onclick=applyMacro({{id}}) data-value=macro_{{id}}>
-                                        <i class="fas fa-arrow-left heading-arrow" ></i>
+    {{#if search}}
+      <div class="container search-container">
+          <div class="row">
+              <div class="col-md-5 m-auto">
+                  <div class="search-block hide-return">
+                      <div class="search-box">
+                          <span class="search-icon">
+                              <i class="fas fa-search"></i>
+                          </span>
+                          <input type="text" id="inputsearch" identifier={{identifier}} placeholder="Search" onfocus="fnSetCloseBtn(this);" onfocusout="fnSetCloseBtn(this);" onkeyup="fnSetCloseBtn(this);fnSearchData(event);" onchange="fnSetCloseBtn(this);"/>
+                          <span class="close-icon" onclick="fnEmptySearch(this)">
+                              <i class="fas fa-times"></i>
+                          </span>
+                      </div>
+                      <span class="return-icon">
+                          <i class="fas fa-reply"></i>
+                      </span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  {{else}}
+  {{/if}}
+  {{#each this.macros}}
+  <section class="ui-section">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-5 m-auto">
+                      <div class="card card{{@index}}">
+                          <div class="card-body">
+                              <div class="heading">
+                                  <h5 class="card-title" onclick=applyMacro({{id}}) data-value=macro_{{id}}>
+                                      <i class="fas fa-arrow-left heading-arrow" ></i>
 
-                                        <span class="title">{{title}}</span>
-                                        <span class="apply">APPLY</span>
-                                    </h5>
-                                </div>
+                                      <span class="title">{{title}}</span>
+                                      <span class="apply">APPLY</span>
+                                  </h5>
+                              </div>
 
 
-                                <div>
-                                    <ul class="nav">
-                                        <li class="nav-item col-customone text-right">
-                                            <a class="btn btn-custom btn{{@index}} nav-link ml-auto clickone" data-toggle="pill" data-state="0" href="#one_{{@index}}" role="button" aria-expanded="false" aria-controls="one_{{@index}}">
-                                                <span class="b-bottom">PREVIEW</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item col-customtwo text-left" style="display: {{#if (eq access true)}}block{{else}}none{{/if}}">
-                                            <a class="btn btn-custom btn_{{@index}} nav-link mr-auto clicktwo" data-toggle="pill" data-state="0" href="#two_{{@index}}" role="button" aria-expanded="false" aria-controls="two_{{@index}}">
-                                                <span class="b-bottom">AUTOMATION
-                                                    <span class="onoff onoff{{@index}}">
-                                                      {{#if (eq state false)}}
-                                                          Off
-                                                      {{else}}
-                                                          On
-                                                      {{/if}}
-                                                    </span>
-                                                </span>
-                                                <span class="count count{{@index}}" style="background: {{#if (eq state false)}}#999{{else}}{{/if}}" >
-                                                    <span class="nmbr nmbr{{@index}}" macro={{id}} identifier={{identifier}} state={{#if (eq state false)}}unchecked{{else}}checked{{/if}}> {{threshold}}</span>%</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                              <div>
+                                  <ul class="nav">
+                                      <li class="nav-item col-customone text-right">
+                                          <a class="btn btn-custom btn{{@index}} nav-link ml-auto clickone" data-toggle="pill" data-state="0" href="#one_{{@index}}" role="button" aria-expanded="false" aria-controls="one_{{@index}}">
+                                              <span class="b-bottom">PREVIEW</span>
+                                          </a>
+                                      </li>
+                                      <li class="nav-item col-customtwo text-left">
+                                          <a class="btn btn-custom btn_{{@index}} nav-link mr-auto clicktwo" data-toggle="pill" data-state="0" href="#two_{{@index}}" role="button" aria-expanded="false" aria-controls="two_{{@index}}">
+                                              <span class="b-bottom">AUTOMATION
+                                                  <span class="onoff onoff{{@index}}">
+                                                    {{#if (eq status "unchecked")}}
+                                                        Off
+                                                    {{else}}
+                                                        On
+                                                    {{/if}}
+                                                  </span>
+                                              </span>
+                                              <span class="count count{{@index}}" style="background: {{#if (eq status 'unchecked')}}#999{{else}}{{/if}}" >
+                                                  <span class="nmbr nmbr{{@index}}" macro={{id}} identifier={{identifier}} state={{#if (eq status 'unchecked')}}unchecked{{else}}checked{{/if}}> {{threshold}}</span>%</span>
+                                          </a>
+                                      </li>
+                                  </ul>
+                              </div>
 
-                                <div class="tab-content">
-                                    <div class=" tab-pane fade " id="one_{{@index}}">
-                                        <div class="content-box cb1">
-                                            <span class="overlay"></span>
-                                            <div class="wrap">{{comment}}</div>
-                                        </div>
-                                    </div>
-                                    <div class=" tab-pane fade" id="two_{{@index}}">
-                                        <div class="content-box">
+                              <div class="tab-content">
+                                  <div class=" tab-pane fade " id="one_{{@index}}">
+                                      <div class="content-box cb1">
+                                          <span class="overlay"></span>
+                                          <div class="wrap">{{comment}}</div>
+                                      </div>
+                                  </div>
+                                  <div class=" tab-pane fade" id="two_{{@index}}">
+                                      <div class="content-box">
 
-                                            <div class="counter-box">
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-number button{{@index}}" data-type="minus" data-field="quant[1]">
-                                                        <i class="fs fa-minu plus01">-</i>
-                                                    </button>
-                                                </span>
+                                          <div class="counter-box">
+                                              <span class="input-group-btn">
+                                                  <button type="button" class="btn btn-number button{{@index}}" data-type="minus" data-field="quant[1]">
+                                                      <i class="fs fa-minu plus01">-</i>
+                                                  </button>
+                                              </span>
 
-                                                <span class="counter counter{{@index}}" style="color: {{#if (eq state false)}}#999{{else}}#fff{{/if}}">
-                                                    <span class="counter-number cn{{@index}}" >{{threshold}}</span>
-                                                    <span class="parcent">%</span>
-                                                </span>
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-number button{{@index}}-" data-type="plus" data-field="quant[1]">
-                                                        <i class="fs fa-plu minus1">+</i>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                            <h4 class="counter-box-content cbc1" style="color: {{#if (eq state false)}}#999{{else}}#fff{{/if}}">Adjust confidence level for automatic responses</h4>
-                                            <div class="switcher">
-                                                <label class="switch">
-                                                    <input id="tbtn" type="checkbox" {{state}} class="switch{{@index}}">
-                                                    <span class="slider round"></span>
-                                                </label>
-                                                <span class="ShowActv act{{@index}}" macro={{id}} identifier={{identifier}}>
-                                                  {{#if (eq state false)}}
-                                                      Non Active
-                                                  {{else}}
-                                                      Active
-                                                  {{/if}}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        {{/each}}
-  </script>
+                                              <span class="counter counter{{@index}}" style="color: {{#if (eq status 'unchecked')}}#999{{else}}#fff{{/if}}">
+                                                  <span class="counter-number cn{{@index}}" >{{threshold}}</span>
+                                                  <span class="parcent">%</span>
+                                              </span>
+                                              <span class="input-group-btn">
+                                                  <button type="button" class="btn btn-number button{{@index}}-" data-type="plus" data-field="quant[1]">
+                                                      <i class="fs fa-plu minus1">+</i>
+                                                  </button>
+                                              </span>
+                                          </div>
+                                          <h4 class="counter-box-content cbc1" style="color: {{#if (eq status 'unchecked')}}#999{{else}}#fff{{/if}}">Adjust confidence level for automatic responses</h4>
+                                          <div class="switcher">
+                                              <label class="switch">
+                                                  <input id="tbtn" type="checkbox" {{status}} class="switch{{@index}}">
+                                                  <span class="slider round"></span>
+                                              </label>
+                                              <span class="ShowActv act{{@index}}">
+                                                {{#if (eq status "unchecked")}}
+                                                    Non Active
+                                                {{else}}
+                                                    Active
+                                                {{/if}}</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+      {{/each}}
+</script>
 
   <script id="error-template" type="text/x-handlebars-template">
     <section class="ui-section">

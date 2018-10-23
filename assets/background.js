@@ -48,7 +48,7 @@ function showAuthModal(client,identifier) {
   getKey(client,KEY_STATE).then(state=>{
     getKey(client,KEY_MODAL_SHOWN).then(modal_shown=>{
       getModalClient(client,'modal').then(modalInstance =>{
-        if (!modalInstance && !modal_shown && !['InProgress','Live'].includes(state)){
+        if (!modalInstance && !modal_shown && !['InProgress','Live','InActive'].includes(state)){
           setKey(client,KEY_MODAL_SHOWN,true);
           client.invoke("instances.create", {
               location: "modal",
