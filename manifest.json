@@ -17,6 +17,6 @@
     }
   },
   "domainWhitelist": ["app.jatana.ai","zendesk.jatana.ai","nlp.jatana.ai"],
-  "version": "1.7.2",
+  "version": "1.7.4",
   "frameworkVersion": "2.0"
 }
