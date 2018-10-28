@@ -235,15 +235,15 @@
 
   <script id="requester-template" type="text/x-handlebars-template">
     {{#if search}}
-      <div class="container search-container">
+      <div class="container search-container" style="height: 40px; padding-left: 15px;">
           <div class="row">
               <div class="col-md-5 m-auto">
-                  <div class="search-block hide-return">
+                  <div class="search-block hide-return" style="margin-top: 0px;margin-bottom: 0px;padding-top: 2px;padding-bottom: 2px;">
                       <div class="search-box">
                           <span class="search-icon">
                               <i class="fas fa-search"></i>
                           </span>
-                          <input type="text" id="inputsearch" identifier={{identifier}} placeholder="Search" onfocus="fnSetCloseBtn(this);" onfocusout="fnSetCloseBtn(this);" onkeyup="fnSetCloseBtn(this);fnSearchData(event);" onchange="fnSetCloseBtn(this);"/>
+                          <input type="text" id="inputsearch" value={{#if search_text includeZero=true}}{{search_text}}{{else}}""{{/if}} identifier={{identifier}} placeholder="Search" onfocus="fnSetCloseBtn(this);" onfocusout="fnSetCloseBtn(this);" onkeyup="fnSetCloseBtn(this);fnSearchData(event);" onchange="fnSetCloseBtn(this);"/>
                           <span class="close-icon" onclick="fnEmptySearch(this)">
                               <i class="fas fa-times"></i>
                           </span>

@@ -186,7 +186,7 @@ function populateApp(client,suggested_macros,identifier,search){
     real_macro_mapping.push({'confidence':suggested_macros[i]['confidence']*100,'title':suggested_macros[i]['macro_title'],'id':suggested_macros[i]['macro_id'],"comment": suggested_macros[i]['comment'],
     "threshold":suggested_macros[i]['threshold'],"state":suggested_macros[i]['state'],"identifier":identifier,"access":suggested_macros[i]["access"]});
   }
-   createAndShowHTML(real_macro_mapping,search,identifier);
+   createAndShowHTML(real_macro_mapping,search,identifier,"");
 
   }
 
@@ -227,11 +227,19 @@ function showMacrosBasicData(data_list,suggested_mapping){
   createAndShowHTML(resp)
 }
 
-function createAndShowHTML(data,search,identifier) {
+function createAndShowHTML(data,search,identifier,search_text) {
   var f_data = {}
   f_data.macros = data;
   f_data.identifier = identifier;
-  f_data.search = true
+  f_data.search = search
+  if(search_text){
+    f_data.search_text = search_text;
+  }
+  else{
+    f_data.search_text = "";
+  }
+
+
 
   console.log(f_data);
   var source = $("#requester-template").html();

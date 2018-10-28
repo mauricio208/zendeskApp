@@ -515,8 +515,10 @@ function fnEmptySearch($this){
   $("#inputsearch").val("");
   $($this).removeClass("show");
   $($this).removeClass("active");
-  var identifier = $(this).attr('identifier')
-  fnGetSearchData(identifier);
+  var identifier = $("#inputsearch").attr('identifier')
+  // fnGetSearchData(identifier);
+  var client = ZAFClient.init();
+  ticketWorkflow(client);
 }
 
 function fnGetSearchData(identifier){
@@ -525,7 +527,8 @@ function fnGetSearchData(identifier){
   $.post( "https://zendesk.jatana.ai/api/macro_search", { search_text: search, identifier:identifier},function(resp){
     // console.log(resp);
     // var resp = jQuery.parseJSON(resp);
-    createAndShowHTML(resp,false,identifier)
+    createAndShowHTML(resp,true,identifier,search)
+    fnSetCloseBtn("#inputsearch")
   })
 }
 
