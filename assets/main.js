@@ -138,7 +138,7 @@ function ticketWorkflow(client){
                   client.get('ticket').then(function(data) {
                     var description = data.ticket.description;
                     url = 'https://zendesk.jatana.ai/api/nlp_suggestion/'
-                    data = {'query':data.ticket.description,"identifier":account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'token':token}
+                    data = {'query':data.ticket.description,"identifier":account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'token':token,'id':data.ticket.id}
                     var nlp_settings = getJatanaSettings(url,data,"POST");
                     client.request(nlp_settings)
                     .then(response => {
