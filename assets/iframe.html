@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
   <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="css/layout.css">
 
   <style>
 
@@ -45,63 +46,132 @@
 
 </head>
 <body>
-  <div id="content" class="zendesk-main">
+  <div id="content" class="zendesk-main-page">
     <div class="loader"></div>
   </div>
   <!-- <footer>
     <a style='text-align: end' href="https://jatana.ai/support" target="_blank"><br><br><br><br>Report bugs</a>
   </footer> -->
 
-  <script id="dashboard-connect" type="text/x-handlebars-template">
-    <section class="ui-section" style="height: 400px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5 m-auto">
-                    <div class="onboarding-card">
-                        <div class="onboarding-card-body card-one">
-                            <h3 class="awesome-">
-                                Awesome!
-                                <span class="imoji1">
-                                    <img src="images/clap.png">
-                                </span>
-                            </h3>
-                            <p class="you-have-succesfully">You have succesfully installed Jatana in your Zendesk account! </p>
-                            <img src="images/jatana.png" srcset="images/jatana.png 2x, images/jatana.png 3x" class="Jatana-01">
-                            <div class="button-bx">
-                              <a href="https://zendesk.jatana.ai/zendesk_profile?identifier={{subdomain}}&platform=Zendesk&email={{email}}&name={{name}}&timezone={{timezone}}" target="_blank">
-                                <button class="Rectangle-6 onboarding-btn" type="button" >
-                                    <span class="Button-text">
-                                        GRANT ACCESS
-                                    </span>
-                                </button>
-                              </a>
-                            </div>
-                            <p class="to-get-started-plea">
-                                To get started, please enable access to your historic data.
-                            </p>
-                        </div>
-                    </div>
+  <script id="installed" type="text/x-handlebars-template">
+    <div class="jatana-app-section">
+        <div class="jatana-app-block">
+            <div class="macros-screen">
+                <div class="header-section">
+                    <h1>
+                        <span>Fantastic! 👏</span>
+                    </h1>
+                    <p>You have succesfully installed Jatana in your Zendesk Account.</p>
+                </div>
+                <div class="body-section">
+                    <img src="./images/image-1-grant-access.png" srcset="./images/image-1-grant-access@2x.png 2x,
+                    ./images/image-1-grant-access@3x.png 3x" />
+                </div>
+                <div class="footer-section">
+                    <a href="https://zendesk.jatana.ai/zendesk_profile?identifier={{subdomain}}&platform=Zendesk_Support&email={{email}}&name={{name}}&timezone={{timezone}}&source=zendesk" class="btn btn-yellow" target="_blank">Grant access</a>
+                    <p>To continue, please enable access to your historic data</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+  </script>
+
+  <script id="accessgranted" type="text/x-handlebars-template">
+    <div class="jatana-app-section">
+        <div class="jatana-app-block">
+            <div class="get-started-screen">
+                <div class="header-section">
+                    <h1>
+                        <span>Awesome! 👍</span>
+                    </h1>
+                    <p>Jatana can now access your historic data.</p>
+                </div>
+                <div class="body-section">
+                    <img src="./images/image-2-get-started.png" srcset="./images/image-2-get-started@2x.png 2x,
+                    ./images/image-2-get-started@3x.png 3x" />
+                </div>
+                <div class="footer-section">
+                    <a href="https://zendesk.jatana.ai/zendesk_profile?identifier={{subdomain}}&platform=Zendesk_Support&email={{email}}&name={{name}}&timezone={{timezone}}&source=zendesk" target="_blank" class="btn btn-yellow">GET STARTED →</a>
+                    <p>Follow the instructions to setup Jatana</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </script>
+
+  <script id="paidsuccess" type="text/x-handlebars-template">
+    <div class="jatana-app-section">
+        <div class="jatana-app-block">
+            <div class="upgrade-screen">
+                <div class="header-section">
+                    <h1>
+                        <span>You are all set! 👌</span>
+                    </h1>
+                    <p>To enable the suggestions, upgrade to a paid plan.</p>
+                </div>
+                <div class="body-section">
+                    <img src="./images/image-3-updgrade.png" srcset="./images/image-3-updgrade@2x.png 2x,
+                    ./images/image-3-updgrade@3x.png 3x" />
+                </div>
+                <div class="footer-section">
+                    <a href="https://zendesk.jatana.ai/zendesk_profile?identifier={{subdomain}}&platform=Zendesk_Support&email={{email}}&name={{name}}&timezone={{timezone}}&source=zendesk" target="_blank" class="btn btn-yellow">Upgrade</a>
+                    <p>No commitment, cancel anytime</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </script>
+
+  <script id="upgraded" type="text/x-handlebars-template">
+    <div class="jatana-app-section">
+        <div class="jatana-app-block">
+            <div class="create-model-screen">
+                <div class="header-section">
+                    <h1>
+                        <span>Upgraded! 🙌</span>
+                    </h1>
+                    <p>Create a suggestion model to enable suggestions.</p>
+                </div>
+                <div class="body-section">
+                    <img src="./images/image-4-create-model.png" srcset="./images/image-4-create-model@2x.png 2x,
+                    ./images/image-4-create-model@3x.png 3x" />
+                </div>
+                <div class="footer-section">
+                    <a href="https://zendesk.jatana.ai/zendesk_profile?identifier={{subdomain}}&platform=Zendesk_Support&email={{email}}&name={{name}}&timezone={{timezone}}&source=zendesk" target="_blank" class="btn btn-yellow">CREATE MODEL</a>
+                    <p>Follow the instructions to create a model</p>
+                </div>
+            </div>
+        </div>
+    </div>
   </script>
 
 
-  <!-- <script id="zendesk-connect" type="text/x-handlebars-template">
-    <div class="zendesk-main__content  zendesk-main__content--background3">
-      		<h2>Awesome!</h2>
-      		<div class="zendesk-main__text zendesk-main__text--second">
-	      		<p class="zendesk-main__info">You have succesfully connected a dashboard with your Zendesk account<br><br>
-              To get started, enable access to your historic data.</p>
-			     </div>
-      		<a href="https://zendesk.jatana.ai/zendesk_profile?identifier={{subdomain}}&platform=Zendesk&email={{email}}&name={{name}}&timezone={{timezone}}" target="_blank" class="button button--orange button--constant">CONFIRM</a>
-      		<p class="zendesk-main__advice">If nothing happens after creating the dashboard, please refresh this page</p>
-      	</div>
-  </script> -->
+  <script id="consumed" type="text/x-handlebars-template">
+    <div class="jatana-app-section">
+        <div class="jatana-app-block">
+            <div class="used-all-screen">
+                <div class="header-section">
+                    <h1>
+                        <span>You have used all the actions for this month! 🏁</span>
+                    </h1>
+                    <p>To continue receiving suggestions, upgrade to a higher plan.</p>
+                </div>
+                <div class="body-section">
+                    <img src="./images/image-6-no-actions-left.png" srcset="./images/image-6-no-actions-left@2x.png 2x,
+                    ./images/image-6-no-actions-left@3x.png 3x" />
+                </div>
+                <div class="footer-section">
+                    <a href="https://zendesk.jatana.ai/zendesk_profile?identifier={{subdomain}}&platform=Zendesk_Support&email={{email}}&name={{name}}&timezone={{timezone}}&source=zendesk" target="_blank" class="btn btn-yellow">Upgrade Plan</a>
+                    <p>No commitment, cancel anytime</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </script>
 
 
-  <script id="error-loading" type="text/x-handlebars-template">
+
+  <script id="errorloading" type="text/x-handlebars-template">
     <section class="ui-section" style="height: 400px;">
         <div class="container">
             <div class="row">
@@ -143,90 +213,26 @@
     </div>
   </script>
 
- <script id="expired-client" type="text/x-handlebars-template">
-  <section class="ui-section" style="height: 400px;">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-5 m-auto">
-                <div class="onboarding-card">
-                    <div class="onboarding-card-body card-two">
-                        <h3 class="your-free-trial-has">
-                            Your FREE TRIAL has expired.
-                        </h3>
-                        <p class="upgrade-to-our-paid">
-                            Upgrade to our paid plan. <br> to continue using Jatana.
-                        </p>
-                        <h1 class="currency">0.10 $</h1>
-                        <span class="per-ticket">per ticket</span>
-                        <p class="no-setup-monthly-o">
-                            <img src="images/tick-inside-circle.png" srcset="images/tick-inside-circle.png 2x, images/tick-inside-circle.png 3x" class="checkmark">
-                            <span>No setup, monthly, or hidden fees</span>
-                        </p>
-                        <p class="no-setup-monthly-o">
-                            <img src="images/cash.png" srcset="images/cash.png 2x, images/cash.png 3x" class="wallet">
-                            <span>Pay only for what you use </span>
-                        </p>
-                        <p class="no-setup-monthly-o">
-                            <img src="images/bar-chart.png" srcset="images/bar-chart.png 2x, images/bar-chart.png 3x" class="stats3">
-                            <span>No credit card required</span>
-                        </p>
-                        <a href="https://app.jatana.ai/checkout?identifier={{subdomain}}&platform=Zendesk" target="_blank">
-                          <button class="Rectangle-6 onboarding-btn" type="button">
-                              <span class="Button-text">
-                                  UPGRADE PLAN
-                              </span>
-                          </button>
-                        </a>
-                    </div>
+  <script id="paymentissue" type="text/x-handlebars-template">
+    <div class="jatana-app-section">
+        <div class="jatana-app-block">
+            <div class="payment-issue-screen">
+                <div class="header-section">
+                    <h1>
+                        We were unable to process your payment
+                    </h1>
+                </div>
+                <div class="body-section">
+                    <img src="./images/image-5-no-money.png" srcset="./images/image-5-no-money@2x.png 2x,
+                    ./images/image-5-no-money@3x.png 3x" />
+                </div>
+                <div class="footer-section">
+                    <a href="#" class="btn btn-yellow">GO TO PAYMENT SETTINGS</a>
                 </div>
             </div>
         </div>
     </div>
-  </section>
-</script>
 
-  <script id="in-progress" type="text/x-handlebars-template">
-    <section class="ui-section" style="height: 400px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5 m-auto">
-                    <div class="onboarding-card">
-                        <div class="onboarding-card-body">
-                            <h3 class="you-are-all-set-">
-                                Fantastic!
-                                <span class="imoji1">
-                                    <img src="images/thumb.png" alt="imoji1">
-                                </span>
-                            </h3>
-                            <p class="the-training-of-your">To start delighting your customers, book an intro call with our experts first.</p>
-                            <img src="images/jatana_ilustration_05.png" srcset="images/jatana_ilustration_05.png, images/jatana_ilustration_05.png" class="jatana_ilustration_05">
-                            <p class="-book-a-one-to-one">
-                                <span class="imoji2">
-                                    <img src="images/indicator.png">
-                                </span>
-                                During the call, we will analyse your case and define the best strategy to deploy AI in your contact center.
-                            </p>
-                            <a href="https://www.jatana.ai/meetings/giovannitoschi/15-min-one-on-one-consultation" target="_blank">
-                            <button class="Rectangle-6 onboarding-btn" type="button">
-                                <span class="Button-text">
-                                    BOOK NOW
-                                </span>
-                            </button>
-                          </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- <div class="zendesk-main__content">
-  		<h2>You are all set!</h2>
-  		<div class="zendesk-main__text zendesk-main__text--fourth">
-    		<p class="zendesk-main__info zendesk-main__info--margin">You'll be notified by email when Jatana has completed the analysis of your data.</p>
-    		<p class="zendesk-main__info">In the meantime, book a one on one with one of our experts and learn how to get the most of Jatana.</p>
-    	</div>
-  		<a href="https://meetings.hubspot.com/luis35" target="_blank" class="button button--orange button--constant">BOOK NOW</a>
-  	</div> -->
   </script>
 
 
@@ -348,8 +354,8 @@
       {{/each}}
 </script>
 
-  <script id="error-template" type="text/x-handlebars-template">
-    <section class="ui-section">
+  <script id="errortemplate" type="text/x-handlebars-template">
+    <section class="ui-section" style="height: 400px;">
         <div class="container">
             <div class="row">
                 <div class="col-md-5 m-auto">
@@ -365,11 +371,11 @@
                                 We are unable to connect with our service at this point of time.
                             </p>
                             <a href="mailto:getstarted@jatana.ai">
-                              <button class="Rectangle-5 onboarding-btn" type="button">
-                                  <span class="Button-text">
-                                      CONNECT SUPPORT
-                                  </span>
-                              </button>
+                            <button class="Rectangle-5 onboarding-btn" type="button">
+                                <span class="Button-text">
+                                    CONNECT SUPPORT
+                                </span>
+                            </button>
                             </a>
                         </div>
                     </div>
@@ -379,35 +385,78 @@
     </section>
   </script>
 
-  <script id="empty-response" type="text/x-handlebars-template">
-    <section class="ui-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5 m-auto">
-                    <div class="onboarding-card">
-                        <div class="onboarding-card-body">
-                            <h3 class="Woops-">
-                                Zero Suggestions!
-                                <span class="imoji3">
-                                    <img src="images/smile.png">
-                                </span>
-                            </h3>
-                            <p class="We-are-unable-to-con">
-                                There are no suggestions for this ticket.
-                            </p>
-                            <a href="mailto:getstarted@jatana.ai">
-                              <button class="Rectangle-5 onboarding-btn" type="button">
-                                  <span class="Button-text">
-                                      CONTACT SUPPORT
-                                  </span>
-                              </button>
-                            </a>
+  <script id="emptyresponse" type="text/x-handlebars-template">
+    <div class="jatana-app-section">
+        <div class="jatana-app-block macros-no-data-block">
+            <div class="macros-no-suggestion-screen">
+                <div class="header-section search-container">
+                    <div class="search-block hide-return">
+                        <div class="search-box">
+                            <span class="search-icon">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input type="text" id="inputsearch" placeholder="Search" onfocus="fnSetCloseBtn(this);"
+                                onfocusout="fnSetCloseBtn(this);" onkeyup="fnSetCloseBtn(this);fnSearchData(event);"
+                                onchange="fnSetCloseBtn(this);" />
+                            <span class="close-icon" onclick="fnEmptySearch(this)">
+                                <i class="fas fa-times"></i>
+                            </span>
                         </div>
+                        <span class="return-icon">
+                            <i class="fas fa-reply"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="body-section">
+                    <img src="./images/zero-suggestion-image.png" srcset="./images/zero-suggestion-image@2x.png 2x,
+                    ./images/zero-suggestion-image@3x.png 3x" />
+                    <div class="content-section">
+                        <h2>We suggest to reply manually</h2>
+                        <p>You are not seeing any suggestions because there are no relevant macros to be suggested for
+                            this
+                            ticket</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+  </script>
+
+  <script id="permissionemptyresponse" type="text/x-handlebars-template">
+    <div class="jatana-app-section">
+        <div class="jatana-app-block macros-no-data-block">
+            <div class="macros-no-permission-screen">
+                <div class="header-section search-container">
+                    <div class="search-block hide-return">
+                        <div class="search-box">
+                            <span class="search-icon">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input type="text" id="inputsearch" placeholder="Search" onfocus="fnSetCloseBtn(this);"
+                                onfocusout="fnSetCloseBtn(this);" onkeyup="fnSetCloseBtn(this);fnSearchData(event);"
+                                onchange="fnSetCloseBtn(this);" />
+                            <span class="close-icon" onclick="fnEmptySearch(this)">
+                                <i class="fas fa-times"></i>
+                            </span>
+                        </div>
+                        <span class="return-icon">
+                            <i class="fas fa-reply"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="body-section">
+                    <img src="./images/zero-suggestion-image.png" srcset="./images/zero-suggestion-image@2x.png 2x,
+                    ./images/zero-suggestion-image@3x.png 3x" />
+                    <div class="content-section">
+                        <h2>We suggest to reply manually</h2>
+                        <p>You are not seeing any suggestions because you don't have permissions to access the macros
+                            being
+                            suggested for this ticket</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   </script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

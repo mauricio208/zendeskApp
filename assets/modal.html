@@ -13,37 +13,36 @@
 </head>
 <body>
   <div class="access_popup_container show">
-    <div class="access_popup_block" style="margin-top: 0px;margin-bottom: 0px;height: 250px;">
-      <div class="access_popup" style="height: 250px;">
-        <div class="access_popup_header">
-          <span>Activate Jatana</span>
-        </div>
-        <div class="access_popup_body">
-          <div class="access_popup_text">
-            Next you will be asked to authorize Jatana to access support tickets stored in your Zendesk accoint. It will take the AI
-            engine
-            <strong>between 1 and 3 days</strong> to analyze all your tickets and learn how to respond to the queries that your company
-            is receiving.
+      <div class="access_popup_block">
+          <div class="access_popup">
+              <div class="access_popup_header">
+                  <span>Activate Jatana</span>
+              </div>
+              <div class="access_popup_body">
+                  <div class="access_popup_text">
+                      Next you will be asked to authorize Jatana to access tickets stored in your Zendesk account.
+                      Grant access to be able to create Artificial Intelligence models that automate processes in
+                      Zendesk.
+                  </div>
+              </div>
+              <div class="access_popup_footer">
+                  <a href="javascript:;">Grant Access</a>
+              </div>
+              <div class="access_popup_footer_extra">
+                  <p class="accept_policy">By clicking the
+                      <strong>Grant Access</strong> button below you agree to our
+                      <a href="#">Terms and Conditions</a> as well as our
+                      <a href="#">Data Protection Policy</a>
+                  </p>
+                  <p class="footer_text">
+                      If you have any questions please reach out to
+                      <strong>Jatana</strong>.
+                  </p>
+              </div>
           </div>
-        </div>
-        <div class="access_popup_footer">
-          <a href=href="#" target="_blank">Grant Access</a>
-        </div>
-        <div class="access_popup_footer_extra">
-          <p class="accept_policy">By clicking the
-            <strong>Grant Access</strong> button below you agree to our
-            <a href="https://www.jatana.ai/terms">Terms and Conditions</a> as well as our
-            <a href="https://www.jatana.ai/gdpr-whitepaper">Data Protection Policy</a>
-          </p>
-          <p class="footer_text">
-            If you have any questions please reach out to
-            <strong>Jatana</strong>.
-          </p>
-        </div>
       </div>
-    </div>
   </div>
-  <div class="popup-overlay show"></div>
+  <div class="access_popup_overlay show"></div>
   <!-- https://github.com/zendesk/zendesk_app_framework_sdk -->
   <script type="text/javascript" src="https://assets.zendesk.com/apps/sdk/2.0/zaf_sdk.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
@@ -73,7 +72,7 @@
           var params = parseParams(window.location.hash);
           console.log(params);
           var identifier = params.identifier;
-            var url = "https://zendesk.jatana.ai/zendesk_profile?platform=Zendesk&identifier="+identifier;
+            var url = "https://zendesk.jatana.ai/zendesk_profile?platform=Zendesk_Support&identifier="+identifier;
             $(this).attr("href", url); // Set herf value
             var client = ZAFClient.init();
             console.log("done");

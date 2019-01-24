@@ -42,7 +42,10 @@ function getKey(client,key){
 function applyMacro (id) {
    console.log(id);
    var client = ZAFClient.init();
+   client.set('comment.text', "");
+   var client = ZAFClient.init();
    client.invoke('macro', id).then(applied=>{
+     console.log(applied);
     client.get('currentUser').then(currentUser => {
       client.get('ticket').then(function(tkt) {
         client.get('currentAccount').then(account =>{
@@ -124,14 +127,20 @@ function ticketWorkflow(client){
         client.metadata().then(metadata => {
             getKey(client,KEY_STATE).then(state =>{
               getKey(client,KEY_TOKEN).then(token =>{
-                if (state==="DashboardConnect"){
-                  connectJatana('#dashboard-connect',{'subdomain':account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset});
+                if (state==="installed"){
+                  connectJatana('#installed',{'subdomain':account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset});
                 }
-                else if (state==="InActive") {
-                    connectJatana('#expired-client',{'subdomain':account.currentAccount.subdomain.trim()});
+                else if (state==="accessgranted") {
+                    connectJatana('#accessgranted',{'subdomain':account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset});
                 }
-                else if (state==="InProgress") {
-                    connectJatana('#in-progress');
+                else if (state==="paidsuccess") {
+                    connectJatana('#paidsuccess',{'subdomain':account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset});
+                }
+                else if (state==="upgraded") {
+                    connectJatana('#upgraded',{'subdomain':account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset});
+                } //consumed
+                else if (state==="consumed") {
+                    connectJatana('#consumed',{'subdomain':account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset});
                 }
                 else if (state === "Live"){
 
@@ -148,8 +157,11 @@ function ticketWorkflow(client){
                       if (response.hasOwnProperty('Message')){
                         connectJatana('#error-nlp',data=response)
                       }
+                      else if(response.permissionzero == true){
+                        connectJatana('#permissionemptyresponse')
+                      }
                       else if(response.macros.length == 0){
-                        connectJatana('#empty-response')
+                        connectJatana('#emptyresponse')
                       }
                       else{
                         populateApp(client, response.macros,account.currentAccount.subdomain.trim(),response.search);
@@ -157,7 +169,7 @@ function ticketWorkflow(client){
                     }).catch(
                       function onError(error){
                         console.log(error);
-                        connectJatana('#error-loading');
+                        connectJatana('#errorloading');
                       })
                   });
 
@@ -167,7 +179,7 @@ function ticketWorkflow(client){
             }).catch(
               function onError(error){
                 console.log(error);
-                connectJatana('#error-loading');
+                connectJatana('#errorloading');
               })
         })
 
@@ -261,7 +273,7 @@ function showError(response) {
     'status': response.status,
     'statusText': response.statusText
   };
-  var source = $("#error-template").html();
+  var source = $("#errortemplate").html();
   var template = Handlebars.compile(source);
   var html = template(error_data);
   $("#content").html(html);
