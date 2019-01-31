@@ -142,6 +142,9 @@ function ticketWorkflow(client){
                 else if (state==="consumed") {
                     connectJatana('#consumed',{'subdomain':account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset});
                 }
+                else if (state==="paymentissue") {
+                    connectJatana('#consumed',{'subdomain':account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset});
+                }
                 else if (state === "Live"){
 
                   client.get('ticket').then(function(data) {
