@@ -42,31 +42,33 @@ function getKey(client,key){
 function applyMacro (id) {
    console.log(id);
    var client = ZAFClient.init();
-   client.set('comment.text', "");
-   var client = ZAFClient.init();
-   client.invoke('macro', id).then(applied=>{
-     console.log(applied);
-    client.get('currentUser').then(currentUser => {
-      client.get('ticket').then(function(tkt) {
-        client.get('currentAccount').then(account =>{
-          var macro_analytics_url = "https://zendesk.jatana.ai/macro_applied"
-          var user_data = {'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset,'macro_id':id,'ticket_id':tkt.ticket.id,"identifier":account.currentAccount.subdomain.trim()}
-          var macro_analytics_settings = getJatanaSettings(macro_analytics_url,user_data,'POST')
-          client.request(macro_analytics_settings).then(analytics_response =>{
-          }).then(
-              client.get('ticket.tags').then(tags=>{
-              tags['ticket.tags'].push("_jatana_suggested");
-              client.set('ticket.tags',tags['ticket.tags'])
-            })//,["_jatana_suggested"])
-          )
+   client.set('ticket.comment.text', [""]).then(clean_comment=>{
+     client.invoke('macro', id).then(applied=>{
+       console.log(applied);
+      client.get('currentUser').then(currentUser => {
+        client.get('ticket').then(function(tkt) {
+          console.log(tkt)
+          client.get('currentAccount').then(account =>{
+            var macro_analytics_url = "https://zendesk.jatana.ai/macro_applied"
+            var user_data = {'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset,'macro_id':id,'ticket_id':tkt.ticket.id,"identifier":account.currentAccount.subdomain.trim()}
+            var macro_analytics_settings = getJatanaSettings(macro_analytics_url,user_data,'POST')
+            client.request(macro_analytics_settings).then(analytics_response =>{
+            }).then(
+                client.get('ticket.tags').then(tags=>{
+                tags['ticket.tags'].push("_jatana_suggested");
+                client.set('ticket.tags',tags['ticket.tags'])
+              })//,["_jatana_suggested"])
+            )
+          });
         });
       });
-    });
-  },
-  function(response) {
-    console.error(response);
-  }
-);
+    },
+    function(response) {
+      console.error(response);
+    }
+  );
+   });
+
 }
 
 function getMacroComment(client,macro){
@@ -105,7 +107,7 @@ function getMacroComment(client,macro){
 $(function() {
   var client = ZAFClient.init();
   // registeredEvent(client);
-  client.invoke('resize', { width: '100%', height: '400px' });
+  client.invoke('resize', { width: '100%', height: '450px' });
   ticketWorkflow(client);
     Handlebars.registerHelper("inc", function(value, options)
     {
@@ -127,6 +129,7 @@ function ticketWorkflow(client){
         client.metadata().then(metadata => {
             getKey(client,KEY_STATE).then(state =>{
               getKey(client,KEY_TOKEN).then(token =>{
+                console.log(state);
                 if (state==="installed"){
                   connectJatana('#installed',{'subdomain':account.currentAccount.subdomain.trim(),'email':currentUser.currentUser.email,'name': currentUser.currentUser.name,'role': currentUser.currentUser.role,'timezone':currentUser.currentUser.timeZone.formattedOffset});
                 }
@@ -201,7 +204,7 @@ function populateApp(client,suggested_macros,identifier,search){
       has_comment = true;
     }
     id_mapping = {360007400834: 360007790033, 360007400874: 360007791713, 360007400914: 360007791733,360007222133: 360008003554, 360007222333: 360008004314}
-    real_macro_mapping.push({'confidence':suggested_macros[i]['confidence']*100,'title':suggested_macros[i]['macro_title'],'id':suggested_macros[i]['macro_id'],"comment": suggested_macros[i]['comment'],
+    real_macro_mapping.push({'confidence':suggested_macros[i]['confidence']*100,'title':suggested_macros[i]['macro_title'],'id':id_mapping[suggested_macros[i]['macro_id']],"comment": suggested_macros[i]['comment'],
     "threshold":suggested_macros[i]['threshold'],"state":suggested_macros[i]['state'],"identifier":identifier,"access":suggested_macros[i]["access"]});
   }
    createAndShowHTML(real_macro_mapping,search,identifier,"");
