@@ -204,7 +204,7 @@ function populateApp(client,suggested_macros,identifier,search){
       has_comment = true;
     }
     id_mapping = {360007400834: 360007790033, 360007400874: 360007791713, 360007400914: 360007791733,360007222133: 360008003554, 360007222333: 360008004314}
-    real_macro_mapping.push({'confidence':suggested_macros[i]['confidence']*100,'title':suggested_macros[i]['macro_title'],'id':id_mapping[suggested_macros[i]['macro_id']],"comment": suggested_macros[i]['comment'],
+    real_macro_mapping.push({'confidence':suggested_macros[i]['confidence']*100,'title':suggested_macros[i]['macro_title'],'id':suggested_macros[i]['macro_id'],"comment": suggested_macros[i]['comment'],
     "threshold":suggested_macros[i]['threshold'],"state":suggested_macros[i]['state'],"identifier":identifier,"access":suggested_macros[i]["access"]});
   }
    createAndShowHTML(real_macro_mapping,search,identifier,"");
